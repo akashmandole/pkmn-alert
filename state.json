@@ -1,7 +1,5 @@
 {
-  "cooldowns": {
-    "queueit": "2026-07-03T20:08:12.634067+00:00"
-  },
+  "cooldowns": {},
   "pending_reminders": [],
   "recent_confirmations": {},
   "seen": {
