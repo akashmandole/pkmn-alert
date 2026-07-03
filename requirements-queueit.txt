@@ -1,0 +1,5 @@
+-r requirements.txt
+# Only needed when the `queueit` source is enabled.
+# Impersonates a real Chrome TLS/JA4 fingerprint so pokemoncenter.com's
+# Akamai edge doesn't hard-block us at the handshake.
+curl_cffi==0.7.4

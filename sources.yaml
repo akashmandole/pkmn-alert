@@ -1,0 +1,80 @@
+## Signal sources.
+##
+## Each entry becomes one Source instance. `id` must be unique — it's used
+## as a prefix in logs, and also namespaces per-source state in state.json.
+##
+## Sources are tried in the order below on every cron tick. One flaky source
+## never blocks the others.
+##
+## Environment variable interpolation: any string containing ${FOO} is
+## replaced by os.environ["FOO"] at load time. Handy for secrets.
+
+sources:
+  ############################################################
+  # Reddit — primary signal. Free, no auth, high signal-to-noise.
+  ############################################################
+  - id: reddit
+    type: reddit
+    enabled: true
+    options:
+      subreddits:
+        - PokemonRestocks
+        - PKMNTCGDeals
+      limit: 25
+      # Subreddits are already Pokemon-restock-focused, so we DO NOT filter
+      # at the source level — subscriber-level `filters.retailers` /
+      # `filters.keywords` handles the "only tell me about pokemoncenter"
+      # cut. Leaving this empty means every post gets forwarded to the
+      # dispatcher and then narrowed per subscriber.
+      keyword_hints: []
+
+  ############################################################
+  # Twitter/X via public Nitter mirrors. Best-effort — mirrors go up and down.
+  ############################################################
+  - id: twitter
+    type: nitter
+    enabled: true
+    options:
+      handles:
+        - PokemonStockUS
+        - PokeTCGAlerts
+        - PokemonDealsTCG
+      keyword_hints:
+        - "pokemon center"
+        - "queue"
+        - "restock"
+        - "drop"
+        - "live"
+
+  ############################################################
+  # Generic RSS. Point at any feed you trust (community webhook mirrors,
+  # TrackaLacker RSS if they publish one, etc). Duplicate this block per feed.
+  ############################################################
+  # - id: trackalacker_rss
+  #   type: rss
+  #   enabled: false
+  #   options:
+  #     url: "https://example.com/feed.xml"
+  #     retailer: pokemoncenter
+  #     region: US
+  #     keyword_hints: ["tcg", "pokemon center"]
+
+  ############################################################
+  # DIRECT queue-it detector — OPT-IN.
+  #
+  # Hits https://www.pokemoncenter.com/ once per run with browser-like TLS
+  # (curl_cffi impersonation) and inspects the response for queue markers.
+  #
+  # Enable this ONLY if you have read the README section titled
+  # "About the direct queue detector" and accept the caveats.
+  # Requires: pip install -r requirements-queueit.txt
+  ############################################################
+  - id: queueit
+    type: queueit
+    enabled: false
+    options:
+      url: "https://www.pokemoncenter.com/"
+      impersonate_choices:
+        - chrome131
+        - chrome124
+        - chrome120

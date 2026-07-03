@@ -1,0 +1,85 @@
+## Subscribers — who gets pinged when a drop event survives the filters.
+##
+## Adding a phone number, email, or new device later = append a new entry.
+## No code change, no redeploy. GitHub Actions picks it up on the next tick.
+##
+## Copy this file to `subscribers.yaml` and fill in your details.
+
+subscribers:
+  ############################################################
+  # Example: you, receiving high-priority queue alerts on ntfy.sh
+  ############################################################
+  - id: me
+    enabled: true
+    channels:
+      # ntfy.sh — recommended default. Install the ntfy iOS/Android app,
+      # subscribe to the topic below (pick something unguessable).
+      - type: ntfy
+        topic: "${NTFY_TOPIC}"                # e.g. pkmn-drops-x7Jq2K
+        # server: "https://ntfy.sh"           # override for self-hosted
+
+      # Native macOS banner — only fires when running on your Mac.
+      - type: macos
+        sound: "Glass"
+
+      # Uncomment to receive email as well:
+      # - type: email
+      #   host: smtp.gmail.com
+      #   port: 587
+      #   username: "${GMAIL_USER}"
+      #   password: "${GMAIL_APP_PASSWORD}"
+      #   from:     "${GMAIL_USER}"
+      #   to:       "you@gmail.com"
+
+      # Uncomment for a free carrier email-to-SMS text:
+      # - type: sms_gateway
+      #   number: "5551234567"                 # 10-digit US number, no punctuation
+      #   carrier: "att"                       # att | tmobile | verizon | ...
+      #   username: "${GMAIL_USER}"
+      #   password: "${GMAIL_APP_PASSWORD}"
+
+      # Uncomment for iOS Shortcuts / Home Assistant / anything HTTP:
+      # - type: webhook
+      #   url:    "https://your-shortcut-url"
+      #   method: POST
+
+    filters:
+      regions: [US]                            # empty [] = all regions
+      retailers: [pokemoncenter]               # empty = all
+      kinds: [queue, restock, preorder]        # skip 'deal' and 'news'
+      keywords:                                # ANY of these must appear in the title
+        - tcg
+        - "trading card"
+        - booster
+        - etb
+        - pokemon center
+        - pokémon center
+        - queue
+      min_confidence: 0.5
+      max_per_day: 20
+      quiet_hours: null                        # e.g. "23:00-06:00" in your tz
+
+  ############################################################
+  # Example: a second person, SMS only, only wants queue alerts (never deals)
+  ############################################################
+  # - id: friend
+  #   enabled: true
+  #   channels:
+  #     - type: sms_gateway
+  #       number: "5559876543"
+  #       carrier: "verizon"
+  #       username: "${GMAIL_USER}"
+  #       password: "${GMAIL_APP_PASSWORD}"
+  #   filters:
+  #     kinds: [queue]
+  #     min_confidence: 0.8
+  #     max_per_day: 5
+
+  ############################################################
+  # Example: dry-run bucket — prints to stdout, useful for testing new sources
+  ############################################################
+  - id: debug-stdout
+    enabled: true
+    channels:
+      - type: stdout
+    filters: {}          # match everything

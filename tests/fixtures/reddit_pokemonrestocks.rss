@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <category term="PokemonRestocks" label="r/PokemonRestocks" />
+  <updated>2026-07-01T20:15:00+00:00</updated>
+  <icon>https://www.redditstatic.com/icon.png/</icon>
+  <id>/r/PokemonRestocks/new/.rss</id>
+  <link rel="self" href="https://www.reddit.com/r/PokemonRestocks/new.rss" type="application/atom+xml" />
+  <link rel="alternate" href="https://www.reddit.com/r/PokemonRestocks/new" type="text/html" />
+  <title>Pokemon Restocks - newest submissions</title>
+
+  <entry>
+    <id>t3_abc001</id>
+    <title>QUEUE IS LIVE on Pokemon Center — Prismatic Evolutions ETB restock!!</title>
+    <link href="https://www.reddit.com/r/PokemonRestocks/comments/abc001/queue_live/" />
+    <updated>2026-07-01T20:14:12+00:00</updated>
+    <published>2026-07-01T20:14:12+00:00</published>
+    <author><name>/u/collector1</name></author>
+    <content type="html">Queue just went live on pokemoncenter.com</content>
+  </entry>
+
+  <entry>
+    <id>t3_abc002</id>
+    <title>Target has Scarlet &amp; Violet 151 booster bundles back in stock</title>
+    <link href="https://www.reddit.com/r/PokemonRestocks/comments/abc002/target_151/" />
+    <updated>2026-07-01T19:52:00+00:00</updated>
+    <published>2026-07-01T19:52:00+00:00</published>
+    <author><name>/u/hunter2</name></author>
+    <content type="html">Target run today.</content>
+  </entry>
+
+  <entry>
+    <id>t3_abc003</id>
+    <title>Pokemon Center — Surging Sparks preorders now up</title>
+    <link href="https://www.reddit.com/r/PokemonRestocks/comments/abc003/surging_sparks/" />
+    <updated>2026-07-01T19:30:00+00:00</updated>
+    <published>2026-07-01T19:30:00+00:00</published>
+    <author><name>/u/preorder_pete</name></author>
+    <content type="html">Preorder link is live.</content>
+  </entry>
+
+  <entry>
+    <id>t3_abc004</id>
+    <title>Off-topic: what's your favorite card art?</title>
+    <link href="https://www.reddit.com/r/PokemonRestocks/comments/abc004/art/" />
+    <updated>2026-07-01T18:00:00+00:00</updated>
+    <published>2026-07-01T18:00:00+00:00</published>
+    <author><name>/u/artfan</name></author>
+    <content type="html">Just curious.</content>
+  </entry>
+
+  <entry>
+    <id>t3_abc005</id>
+    <title>Best Buy dropped Charizard ex Premium Collection</title>
+    <link href="https://www.reddit.com/r/PokemonRestocks/comments/abc005/bestbuy_charizard/" />
+    <updated>2026-07-01T17:15:00+00:00</updated>
+    <published>2026-07-01T17:15:00+00:00</published>
+    <author><name>/u/deals</name></author>
+    <content type="html">Best Buy link.</content>
+  </entry>
+</feed>
