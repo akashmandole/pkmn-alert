@@ -1,11 +1,5 @@
 {
-  "cooldowns": {
-    "reddit": "2026-07-03T19:20:22.001085+00:00"
-  },
+  "cooldowns": {},
   "seen": {},
-  "source_meta": {
-    "reddit": {
-      "last_id_PokemonRestocks": "t3_1umiqmz"
-    }
-  }
+  "source_meta": {}
 }
