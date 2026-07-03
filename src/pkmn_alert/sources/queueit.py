@@ -99,8 +99,13 @@ class QueueItSource(Source):
         url: str = self.options.get("url", DEFAULT_URL)
         # Randomize the ClientHello a bit across runs so we don't paint the
         # same JA3 on every request — real users vary by minor Chrome version.
+        # curl_cffi 0.7.x supports a fixed list of profiles. chrome131 was
+        # added in 0.8+ and errors out on 0.7.4 with "Impersonating chromeXXX
+        # is not supported". Default to the newest profiles that 0.7.x
+        # actually ships. Users can override via sources.yaml if they pin
+        # a newer curl_cffi.
         impersonate_choices = self.options.get(
-            "impersonate_choices", ["chrome131", "chrome124", "chrome120"]
+            "impersonate_choices", ["chrome124", "chrome120", "chrome116"]
         )
         impersonate = random.choice(impersonate_choices)
 

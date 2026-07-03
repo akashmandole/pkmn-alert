@@ -100,7 +100,10 @@ sources:
     enabled: true
     options:
       url: "https://www.pokemoncenter.com/"
+      # Profiles supported by curl_cffi 0.7.x (what our
+      # requirements-queueit.txt pins). If you bump to 0.8+ you can add
+      # chrome131 / chrome133 back to this list.
       impersonate_choices:
-        - chrome131
         - chrome124
         - chrome120
+        - chrome116
