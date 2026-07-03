@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import logging
 import re
+import time
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
@@ -43,6 +44,13 @@ DEFAULT_LIMIT = 25
 # UA/IP for a while"; 15 min is enough to clear their sliding window.
 RATE_LIMIT_COOLDOWN = timedelta(minutes=15)
 
+# Reddit's anonymous rate limit is ~10 req/min, but cloud-provider IPs
+# (GitHub Actions, AWS, etc.) hit a stricter per-ASN throttle. Empirically
+# two back-to-back requests get the second one 429'd. Sleeping 6s between
+# subreddits keeps us under the limit while still fitting comfortably in
+# our 5-min cron window.
+INTER_SUB_DELAY_S = 6.0
+
 # Reddit strips HTML tags from feed entries; we keep this regex around to
 # defensively clean any residual tags before matching keywords.
 _TAG_RE = re.compile(r"<[^>]+>")
@@ -57,10 +65,21 @@ class RedditSource(Source):
         # on per-subscriber `filters.keywords` for the final cut.
         keyword_hint: list[str] = [k.lower() for k in self.options.get("keyword_hints", [])]
 
+        # Tests / callers with a single subreddit never actually sleep
+        # (delay only fires between subs). Exposed as an option so tests
+        # can explicitly zero it out and so users can tune it if their
+        # ASN reputation is different from GitHub Actions'.
+        delay_s: float = float(self.options.get("inter_sub_delay_s", INTER_SUB_DELAY_S))
+
         meta = ctx.state.source_meta.setdefault(self.id, {})
         events: list[DropEvent] = []
 
-        for sub in subs:
+        for i, sub in enumerate(subs):
+            if i > 0 and delay_s > 0:
+                # Space requests to stay under Reddit's per-ASN throttle.
+                # See INTER_SUB_DELAY_S for rationale.
+                time.sleep(delay_s)
+
             url = f"https://www.reddit.com/r/{sub}/new.rss?limit={limit}"
             resp = self._get(url, ctx)
             if resp is None:

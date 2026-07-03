@@ -29,11 +29,18 @@ sources:
       keyword_hints: []
 
   ############################################################
-  # Twitter/X via public Nitter mirrors. Best-effort — mirrors go up and down.
+  # Twitter/X via public Nitter mirrors. DISABLED BY DEFAULT.
+  #
+  # As of mid-2026 every public Nitter mirror (xcancel.com,
+  # nitter.privacyredirect.com, nitter.poast.org, tiekoetter.com,
+  # nitter.space, ...) blocks known cloud-provider IP ranges — including
+  # GitHub Actions runners — via Cloudflare or their own reverse-proxy.
+  # From a CI runner this source produces 100% 403s and 0 events, so we
+  # leave it disabled. Re-enable only if you host from a residential IP.
   ############################################################
   - id: twitter
     type: nitter
-    enabled: true
+    enabled: false
     options:
       handles:
         - PokemonStockUS
