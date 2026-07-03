@@ -36,6 +36,21 @@ class State:
     # arbitrary per-source scratch (e.g. Reddit last-seen post id) so sources
     # can dedupe on the source side too and avoid re-fetching identical items.
     source_meta: dict[str, dict[str, Any]] = field(default_factory=dict)
+    # Follow-up pushes scheduled for future ticks.
+    #   Each entry is a dict with keys:
+    #     - event:        DropEvent.to_dict()   — replayed at fire time
+    #     - subscriber_id: str
+    #     - channel:      {"type": ..., "options": {...}}
+    #     - due_iso:      ISO8601 timestamp when this reminder becomes due
+    #     - attempt:      int (1 = first reminder after original, ...)
+    # We store the fully-hydrated channel dict rather than a channel index
+    # so that mid-flight subscriber edits don't break in-flight reminders.
+    pending_reminders: list[dict[str, Any]] = field(default_factory=list)
+    # Cross-source correlation record: "<retailer>_<kind>" -> ISO8601 timestamp
+    # of the most recent direct-observation confirmation. The queueit source
+    # writes here; the dispatcher reads here to upgrade Reddit-only events
+    # to HIGH confidence when a recent confirmation exists.
+    recent_confirmations: dict[str, str] = field(default_factory=dict)
 
     def has_seen(self, key: str) -> bool:
         return key in self.seen
@@ -56,6 +71,26 @@ class State:
     def set_cooldown(self, source_id: str, until: datetime) -> None:
         self.cooldowns[source_id] = until.astimezone(timezone.utc).isoformat()
 
+    def record_confirmation(self, retailer: str, kind: str, when: datetime) -> None:
+        """Called by direct-observation sources (queueit) to mark that we
+        physically saw the drop happen. The dispatcher uses this to upgrade
+        derivative sources (Reddit) from MED to HIGH confidence."""
+        self.recent_confirmations[f"{retailer}_{kind}"] = (
+            when.astimezone(timezone.utc).isoformat()
+        )
+
+    def was_recently_confirmed(
+        self, retailer: str, kind: str, within: timedelta, now: datetime
+    ) -> bool:
+        raw = self.recent_confirmations.get(f"{retailer}_{kind}")
+        if not raw:
+            return False
+        try:
+            when = datetime.fromisoformat(raw)
+        except ValueError:
+            return False
+        return (now - when) <= within
+
     def prune(self, now: datetime) -> None:
         cutoff = now - DEDUPE_TTL
         expired = [
@@ -75,6 +110,23 @@ class State:
         self.cooldowns = {
             k: v for k, v in self.cooldowns.items() if _parse_iso(v) > now
         }
+
+        # Prune stale confirmations after 24h — they've long served their
+        # purpose of correlating with the same-day Reddit post.
+        confirmation_cutoff = now - timedelta(hours=24)
+        self.recent_confirmations = {
+            k: v
+            for k, v in self.recent_confirmations.items()
+            if _parse_iso(v) > confirmation_cutoff
+        }
+
+        # Drop reminders whose due time is more than 1 hour past. Firing a
+        # 3-hour-old reminder is worse than not firing at all.
+        reminder_cutoff = now - timedelta(hours=1)
+        self.pending_reminders = [
+            r for r in self.pending_reminders
+            if _parse_iso(r.get("due_iso", "")) > reminder_cutoff
+        ]
 
 
 def _parse_iso(raw: str) -> datetime:
@@ -98,6 +150,8 @@ def load(path: Path) -> State:
         seen=dict(raw.get("seen", {})),
         cooldowns=dict(raw.get("cooldowns", {})),
         source_meta=dict(raw.get("source_meta", {})),
+        pending_reminders=list(raw.get("pending_reminders", [])),
+        recent_confirmations=dict(raw.get("recent_confirmations", {})),
     )
 
 
@@ -106,6 +160,8 @@ def save(path: Path, state: State) -> None:
         "seen": state.seen,
         "cooldowns": state.cooldowns,
         "source_meta": state.source_meta,
+        "pending_reminders": state.pending_reminders,
+        "recent_confirmations": state.recent_confirmations,
     }
     path.parent.mkdir(parents=True, exist_ok=True)
     # sort_keys so diffs are stable — important because the GitHub Actions

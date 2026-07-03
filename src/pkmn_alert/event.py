@@ -70,3 +70,22 @@ class DropEvent:
             "retailer": self.retailer,
             "confidence": self.confidence,
         }
+
+    @classmethod
+    def from_dict(cls, d: dict[str, Any]) -> "DropEvent":
+        """Rehydrate a DropEvent that was serialized via ``to_dict()``.
+
+        Used by the reminder system, which persists events to state.json
+        and replays them a fixed delay later. We intentionally do NOT
+        round-trip the ``raw`` field because it can contain arbitrary
+        source-specific payloads that would bloat the state file."""
+        return cls(
+            source=d["source"],
+            title=d["title"],
+            url=d.get("url", ""),
+            detected_at=datetime.fromisoformat(d["detected_at"]),
+            kind=d.get("kind", "restock"),
+            region=d.get("region", "US"),
+            retailer=d.get("retailer", "unknown"),
+            confidence=float(d.get("confidence", 1.0)),
+        )

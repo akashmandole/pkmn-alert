@@ -72,7 +72,8 @@ class TestDispatch:
 
         assert result.delivered == 1
         assert result.failed == 0
-        assert RecordingNotifier.all_instances[0].sent == [("me", "Pokemon Center Prismatic ETB restock live")]
+        # No state passed => dispatcher falls back to MED (backwards-compat mode).
+        assert RecordingNotifier.all_instances[0].sent == [("me", "[MED] Pokemon Center Prismatic ETB restock live")]
 
     def test_filters_prevent_delivery(self, monkeypatch):
         _install_recording_notifier(monkeypatch)
@@ -115,8 +116,8 @@ class TestDispatch:
 
         assert result.delivered == 2
         # Order of instances: subscriber "me" then "friend"
-        assert RecordingNotifier.all_instances[0].sent == [("me", "Pokemon Center Prismatic ETB restock live")]
-        assert RecordingNotifier.all_instances[1].sent == [("friend", "Pokemon Center Prismatic ETB restock live")]
+        assert RecordingNotifier.all_instances[0].sent == [("me", "[MED] Pokemon Center Prismatic ETB restock live")]
+        assert RecordingNotifier.all_instances[1].sent == [("friend", "[MED] Pokemon Center Prismatic ETB restock live")]
 
     def test_disabled_subscriber_gets_nothing(self, monkeypatch):
         _install_recording_notifier(monkeypatch)

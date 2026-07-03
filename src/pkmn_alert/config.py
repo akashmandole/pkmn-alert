@@ -73,6 +73,15 @@ class Subscriber:
     enabled: bool
     channels: list[ChannelConfig]
     filters: SubscriberFilters
+    #: Minutes-after-the-original-push at which to send follow-up reminder
+    #: notifications. Empty list = no reminders (one-and-done). Example:
+    #: ``[15]`` sends one reminder 15 minutes after the first alert;
+    #: ``[10, 20]`` sends two reminders at +10 min and +20 min.
+    #:
+    #: Reminders re-evaluate their confidence label at fire time — if the
+    #: queueit source has since confirmed the drop, a MED alert can be
+    #: upgraded to HIGH by the time its reminder goes out.
+    reminders_minutes: list[int] = field(default_factory=list)
 
 
 @dataclass
@@ -119,12 +128,23 @@ def load(
             max_per_day=int(f.get("max_per_day", 20)),
             quiet_hours=f.get("quiet_hours"),
         )
+        raw_reminders = entry.get("reminders_minutes") or []
+        try:
+            reminders_minutes = [int(x) for x in raw_reminders if int(x) > 0]
+        except (TypeError, ValueError):
+            log.warning(
+                "subscriber %r has malformed reminders_minutes=%r; ignoring",
+                entry.get("id"), raw_reminders,
+            )
+            reminders_minutes = []
+
         subscribers.append(
             Subscriber(
                 id=entry["id"],
                 enabled=bool(entry.get("enabled", True)),
                 channels=channels,
                 filters=filters,
+                reminders_minutes=reminders_minutes,
             )
         )
 

@@ -114,7 +114,31 @@ subscribers:
       min_confidence: 0.5
       max_per_day: 20
       quiet_hours: "23:00-06:00"     # muted during these hours except queues
+    reminders_minutes: [15]          # follow-up push 15 min after the original
 ```
+
+### Confidence labels
+
+Every notification title is prefixed with a confidence tag so you can
+tell at a glance how much to trust it:
+
+| Prefix | Meaning |
+| ------ | ------- |
+| `[HIGH]` | Reddit fired AND the direct `queueit` probe saw the queue on `pokemoncenter.com` within the last 30 minutes. Confirmed. |
+| `[MED]`  | Only Reddit / another derivative source fired. Probably real but not physically confirmed by us. |
+| `[HIGH][REMIND #1]` | This is a **reminder** re-send whose label was re-evaluated at fire time — so a MED alert can naturally become a HIGH reminder if `queueit` confirmed the drop after the original push went out. |
+
+### Reminder follow-ups
+
+Set `reminders_minutes: [15]` (or `[10, 20]`, etc.) on a subscriber to
+have the dispatcher queue N extra pushes for every real drop. Each
+reminder is stored in `state.json` and fired at the START of the tick
+that first crosses its due time. If you set `reminders_minutes: []` (or
+omit it), you get one-and-done alerts like before.
+
+Reminders that would fire more than 15 minutes past their intended time
+are quietly dropped — better to miss a stale reminder than to get a
+"surprise" alert about a drop that ended hours ago.
 
 ### Supported channels
 

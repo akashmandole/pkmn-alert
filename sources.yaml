@@ -73,18 +73,31 @@ sources:
   #     keyword_hints: ["tcg", "pokemon center"]
 
   ############################################################
-  # DIRECT queue-it detector — OPT-IN.
+  # DIRECT queue-it detector — CONFIRMATION-ONLY.
   #
-  # Hits https://www.pokemoncenter.com/ once per run with browser-like TLS
-  # (curl_cffi impersonation) and inspects the response for queue markers.
+  # This source hits https://www.pokemoncenter.com/ once per run with
+  # browser-like TLS (curl_cffi impersonation) and inspects the response
+  # for queue-it markers (URL redirect to *.queue-it.net, QueueIT
+  # cookies, or known queue-page text).
   #
-  # Enable this ONLY if you have read the README section titled
-  # "About the direct queue detector" and accept the caveats.
-  # Requires: pip install -r requirements-queueit.txt
+  # The dispatcher DOES NOT push a notification when queueit fires alone.
+  # Its role is purely to CONFIRM Reddit-based signals — when queueit
+  # sees the queue within 30 min of a Reddit event about pokemoncenter,
+  # the Reddit alert gets labelled [HIGH] instead of [MED].
+  #
+  # See dispatch.py's module docstring for the full correlation logic.
+  #
+  # Caveats:
+  #   * Pokemon Center ToS technically forbids "robots". At 1 request /
+  #     5 min we are ~10x below any commercial-scraper threshold, but
+  #     you're on your own if Akamai eventually blocks GitHub Actions
+  #     IPs. The source auto-cools-down 30 min on any 403/412/429.
+  #   * Requires curl_cffi (installed automatically by the workflow
+  #     when enabled: true is set here).
   ############################################################
   - id: queueit
     type: queueit
-    enabled: false
+    enabled: true
     options:
       url: "https://www.pokemoncenter.com/"
       impersonate_choices:

@@ -1,5 +1,7 @@
 {
   "cooldowns": {},
+  "pending_reminders": [],
+  "recent_confirmations": {},
   "seen": {
     "14974f6aa918bb4e": "2026-07-03T19:09:26.685194+00:00",
     "1b4d0ad808f49b2d": "2026-07-03T19:09:26.685194+00:00",

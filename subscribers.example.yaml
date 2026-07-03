@@ -59,6 +59,12 @@ subscribers:
       max_per_day: 20
       quiet_hours: null                        # e.g. "23:00-06:00" in your tz
 
+    # Send follow-up reminder pushes N minutes after the original alert.
+    # Empty list = one-and-done. Each reminder re-evaluates its confidence
+    # label at fire time, so a [MED] alert can naturally become a [HIGH]
+    # reminder if the queueit source confirms the drop in the interim.
+    reminders_minutes: [15]
+
   ############################################################
   # Example: a second person, SMS only, only wants queue alerts (never deals)
   ############################################################

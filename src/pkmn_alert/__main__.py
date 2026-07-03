@@ -16,7 +16,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from . import __version__, config as cfgmod, state as statemod
-from .dispatch import dispatch
+from .dispatch import dispatch, process_due_reminders
 from .sources import build as build_source
 
 log = logging.getLogger("pkmn_alert")
@@ -109,6 +109,20 @@ def main(argv: list[str] | None = None) -> int:
     state = statemod.load(cfg.state_path)
     now = datetime.now(tz=timezone.utc)
 
+    # ---- fire due reminders BEFORE fetching ----
+    #
+    # We do this first so a slow / rate-limited fetch later in the tick
+    # never delays a due reminder past its intended time. The reminder
+    # payloads live in state.json and were queued by prior successful
+    # dispatches; the notifier configs are frozen at queue time so
+    # mid-flight subscriber edits don't corrupt in-flight reminders.
+    if not args.seed_only:
+        fired = process_due_reminders(
+            state, cfg.subscribers, now=now, tz_name=cfg.timezone, dry_run=args.dry_run,
+        )
+        if fired:
+            log.info("fired %d due reminder(s) before fetch", fired)
+
     # ---- fetch ----
     all_events = []
     from .sources.base import SourceContext
@@ -159,11 +173,15 @@ def main(argv: list[str] | None = None) -> int:
         cfg.subscribers,
         now=now,
         tz_name=cfg.timezone,
+        state=state,
         dry_run=args.dry_run,
     )
     log.info(
-        "dispatch complete: delivered=%d filtered=%d unconfigured=%d failed=%d dry_run=%s",
+        "dispatch complete: delivered=%d reminders_queued=%d confirmations=%d "
+        "filtered=%d unconfigured=%d failed=%d dry_run=%s",
         result.delivered,
+        result.reminders_queued,
+        result.confirmations_recorded,
         result.skipped_filtered,
         result.skipped_unconfigured,
         result.failed,
