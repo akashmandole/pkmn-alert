@@ -56,6 +56,12 @@ CONFIRMATION_LOOKBACK = timedelta(minutes=30)
 # than fired late (see State.prune()).
 REMINDER_MAX_LATENESS = timedelta(minutes=15)
 
+# When queueit confirms an active queue we open a "probe burst" — the
+# queueit gate is bypassed and we hit pokemoncenter.com every 5 min so
+# we can catch multi-wave restocks and the queue re-opening. Value must
+# stay in sync with sources/queueit.py DEFAULT_BURST_MINUTES.
+PROBE_BURST_DURATION = timedelta(minutes=30)
+
 
 @dataclass
 class DispatchResult:
@@ -191,10 +197,15 @@ def dispatch(
         for event in events_list:
             if event.source == "queueit" and event.retailer == "pokemoncenter":
                 state.record_confirmation(event.retailer, event.kind, now)
+                # Open a probe burst so the next 30 min of queueit ticks
+                # bypass the confidence gate. If we're mid-burst already
+                # this just extends it, which is what we want when waves
+                # of drops keep arriving.
+                state.set_probe_burst(now + PROBE_BURST_DURATION)
                 result.confirmations_recorded += 1
                 log.info(
-                    "recorded confirmation retailer=%s kind=%s at %s",
-                    event.retailer, event.kind, now.isoformat(),
+                    "recorded confirmation retailer=%s kind=%s at %s; probe burst extended to %s",
+                    event.retailer, event.kind, now.isoformat(), state.probe_burst_until,
                 )
                 continue
             dispatchable.append(event)

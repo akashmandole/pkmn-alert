@@ -51,6 +51,17 @@ class State:
     # writes here; the dispatcher reads here to upgrade Reddit-only events
     # to HIGH confidence when a recent confirmation exists.
     recent_confirmations: dict[str, str] = field(default_factory=dict)
+    # Rolling log of "a derivative source produced a fresh, drop-shaped event
+    # about the retailer we care about". Feeds the confidence gate on the
+    # queueit source so we don't hammer pokemoncenter.com on quiet ticks.
+    # Each entry: {"source_id", "kind", "retailer", "at" (ISO8601)}. Pruned
+    # to a 60-min window in prune().
+    signal_log: list[dict[str, Any]] = field(default_factory=list)
+    # When a queueit probe confirms an active queue we open a "burst" window
+    # during which the gate is bypassed and we probe every tick — useful for
+    # multi-wave drops or catching the queue re-opening. ISO8601 timestamp
+    # or empty string when no burst is active.
+    probe_burst_until: str = ""
 
     def has_seen(self, key: str) -> bool:
         return key in self.seen
@@ -91,6 +102,65 @@ class State:
             return False
         return (now - when) <= within
 
+    def record_signal(
+        self, source_id: str, kind: str, retailer: str, when: datetime,
+    ) -> None:
+        """Log a fresh drop-shaped event from a derivative source.
+
+        Called by the main loop right after per-source dedupe so the log
+        is populated BEFORE queueit's gate check runs (assuming source
+        ordering puts queueit last, which __main__ enforces)."""
+        self.signal_log.append({
+            "source_id": source_id,
+            "kind": kind,
+            "retailer": retailer,
+            "at": when.astimezone(timezone.utc).isoformat(),
+        })
+
+    def distinct_signal_sources_since(
+        self,
+        since: datetime,
+        now: datetime,
+        exclude: set[str] | None = None,
+        kinds: set[str] | None = None,
+        retailers: set[str] | None = None,
+    ) -> set[str]:
+        """Return the set of source_ids that have logged qualifying signals
+        within [since, now]. Optional ``kinds`` / ``retailers`` filters
+        further restrict what counts as a signal for the caller's purposes."""
+        _ = now  # explicit that "now" is here for symmetry / future use
+        exclude = exclude or set()
+        result: set[str] = set()
+        for entry in self.signal_log:
+            src = entry.get("source_id", "")
+            if src in exclude:
+                continue
+            if kinds and entry.get("kind") not in kinds:
+                continue
+            if retailers and entry.get("retailer") not in retailers:
+                continue
+            raw = entry.get("at", "")
+            try:
+                at = datetime.fromisoformat(raw)
+            except ValueError:
+                continue
+            if at < since:
+                continue
+            result.add(src)
+        return result
+
+    def is_in_probe_burst(self, now: datetime) -> bool:
+        if not self.probe_burst_until:
+            return False
+        try:
+            until = datetime.fromisoformat(self.probe_burst_until)
+        except ValueError:
+            return False
+        return now < until
+
+    def set_probe_burst(self, until: datetime) -> None:
+        self.probe_burst_until = until.astimezone(timezone.utc).isoformat()
+
     def prune(self, now: datetime) -> None:
         cutoff = now - DEDUPE_TTL
         expired = [
@@ -128,6 +198,18 @@ class State:
             if _parse_iso(r.get("due_iso", "")) > reminder_cutoff
         ]
 
+        # Signal log entries older than 60 min can't influence any gate
+        # decision (widest configured window is ~20 min).
+        signal_cutoff = now - timedelta(minutes=60)
+        self.signal_log = [
+            entry for entry in self.signal_log
+            if _parse_iso(entry.get("at", "")) > signal_cutoff
+        ]
+
+        # Clear expired burst window.
+        if self.probe_burst_until and not self.is_in_probe_burst(now):
+            self.probe_burst_until = ""
+
 
 def _parse_iso(raw: str) -> datetime:
     try:
@@ -152,6 +234,8 @@ def load(path: Path) -> State:
         source_meta=dict(raw.get("source_meta", {})),
         pending_reminders=list(raw.get("pending_reminders", [])),
         recent_confirmations=dict(raw.get("recent_confirmations", {})),
+        signal_log=list(raw.get("signal_log", [])),
+        probe_burst_until=str(raw.get("probe_burst_until", "") or ""),
     )
 
 
@@ -162,6 +246,8 @@ def save(path: Path, state: State) -> None:
         "source_meta": state.source_meta,
         "pending_reminders": state.pending_reminders,
         "recent_confirmations": state.recent_confirmations,
+        "signal_log": state.signal_log,
+        "probe_burst_until": state.probe_burst_until,
     }
     path.parent.mkdir(parents=True, exist_ok=True)
     # sort_keys so diffs are stable — important because the GitHub Actions

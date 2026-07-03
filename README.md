@@ -140,6 +140,41 @@ Reminders that would fire more than 15 minutes past their intended time
 are quietly dropped — better to miss a stale reminder than to get a
 "surprise" alert about a drop that ended hours ago.
 
+## Confidence gate: when do we actually probe Pokemon Center?
+
+The `queueit` source doesn't hit pokemoncenter.com every tick. It's
+**gated** on cross-source signal so we don't burn our request budget
+(and Akamai's tolerance) on quiet ticks.
+
+The gate opens when:
+
+1. At least `gate_min_sources` distinct derivative sources (default: 1)
+   have logged a fresh drop-shaped event within `gate_window_minutes`
+   (default: 20), **OR**
+2. We are inside a **probe burst** window opened by a previous
+   confirmed queue detection (default: 30 min).
+
+A "drop-shaped event" for gate purposes means the event's `kind` is one
+of `{queue, restock, preorder}` AND the retailer is `{pokemoncenter,
+unknown}`. Random deal/news posts or Target/Walmart posts do NOT open
+the gate — otherwise we'd probe on every noisy Reddit post.
+
+Tuning knobs live in `sources.yaml` under the queueit source's
+`options`:
+
+```yaml
+  - id: queueit
+    options:
+      gate_min_sources: 1        # raise to 2 for stricter signal
+      gate_window_minutes: 20    # shrink to 10 for tighter correlation
+```
+
+**Effective request rate against Pokemon Center**: on quiet days ~0
+requests. During an active drop, one probe within 5 min of the first
+Reddit post, then every 5 min for the following 30 min of the burst
+window. Typical week ≈ 20–50 requests total, vs. the ~2,000 we'd send
+if we probed every tick.
+
 ### Supported channels
 
 | `type`         | What it does                                             | Setup cost |

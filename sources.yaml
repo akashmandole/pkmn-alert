@@ -17,18 +17,18 @@ sources:
     type: reddit
     enabled: true
     options:
+      # All 4 subs are pulled in a SINGLE HTTP request via Reddit's
+      # built-in combined-feed URL (/r/a+b+c+d/new.rss). This dodges the
+      # per-ASN throttle that used to 429 our 2nd consecutive request
+      # from a GH Actions IP — one connection = one rate-limit hit.
       subreddits:
-        # r/PokemonRestocks is the highest-signal free source we have and
-        # it works reliably from GitHub Actions runners.
-        # r/PKMNTCGDeals is disabled by default because Reddit's per-ASN
-        # throttle 429s our second consecutive request from a cloud IP,
-        # even with a 6-second spacer between calls. If you run this
-        # from a residential IP (e.g. a home server), safely add it back.
-        - PokemonRestocks
-        # - PKMNTCGDeals
+        - PokemonRestocks  # highest signal, restock-focused
+        - PKMNTCGDeals     # deals + restocks
+        - PokeInvesting    # investors post drops early for flipping
+        - pokemongoing     # broader collector chatter
       limit: 25
-      # Subreddits are already Pokemon-restock-focused, so we DO NOT filter
-      # at the source level — subscriber-level `filters.retailers` /
+      # Subreddits are already Pokemon-focused, so we DO NOT filter at
+      # the source level — subscriber-level `filters.retailers` /
       # `filters.keywords` handles the "only tell me about pokemoncenter"
       # cut. Leaving this empty means every post gets forwarded to the
       # dispatcher and then narrowed per subscriber.
@@ -73,25 +73,35 @@ sources:
   #     keyword_hints: ["tcg", "pokemon center"]
 
   ############################################################
-  # DIRECT queue-it detector — CONFIRMATION-ONLY.
+  # DIRECT queue-it detector — CONFIRMATION-ONLY + GATED.
   #
-  # This source hits https://www.pokemoncenter.com/ once per run with
-  # browser-like TLS (curl_cffi impersonation) and inspects the response
-  # for queue-it markers (URL redirect to *.queue-it.net, QueueIT
-  # cookies, or known queue-page text).
+  # This source hits https://www.pokemoncenter.com/ with browser-like
+  # TLS (curl_cffi impersonation) and inspects the response for
+  # queue-it markers (URL redirect to *.queue-it.net, QueueIT cookies,
+  # or known queue-page text).
   #
-  # The dispatcher DOES NOT push a notification when queueit fires alone.
-  # Its role is purely to CONFIRM Reddit-based signals — when queueit
-  # sees the queue within 30 min of a Reddit event about pokemoncenter,
-  # the Reddit alert gets labelled [HIGH] instead of [MED].
+  # Behaviour changes from a "vanilla" source:
+  #   1. NEVER dispatches on its own. When it fires, the dispatcher just
+  #      records a "confirmation" and uses it to upgrade Reddit's next
+  #      alert to [HIGH] instead of [MED].
+  #   2. CONFIDENCE-GATED. It only actually makes the HTTP request when
+  #      >=`gate_min_sources` distinct derivative sources have logged a
+  #      qualifying signal (kind in {queue,restock,preorder}, retailer
+  #      in {pokemoncenter,unknown}) within `gate_window_minutes`. On
+  #      quiet ticks it just skips, keeping our PC traffic to ~0.
+  #   3. BURST MODE. When it successfully detects a queue, the gate is
+  #      bypassed for the following 30 min so we can catch multi-wave
+  #      restocks and the queue re-opening moment.
   #
-  # See dispatch.py's module docstring for the full correlation logic.
+  # Trade-off: a drop that generates zero Reddit chatter would go
+  # undetected. In practice Reddit chatter shows up within seconds of
+  # a drop going live, well inside our 5-min tick.
   #
   # Caveats:
-  #   * Pokemon Center ToS technically forbids "robots". At 1 request /
-  #     5 min we are ~10x below any commercial-scraper threshold, but
-  #     you're on your own if Akamai eventually blocks GitHub Actions
-  #     IPs. The source auto-cools-down 30 min on any 403/412/429.
+  #   * Pokemon Center ToS technically forbids "robots". Gating means
+  #     we only send ~5–15 requests/day on active days, ~0 on quiet
+  #     days — well below any commercial-scraper threshold. Auto-
+  #     cooldowns for 30 min on any 403/412/429.
   #   * Requires curl_cffi (installed automatically by the workflow
   #     when enabled: true is set here).
   ############################################################
@@ -100,6 +110,10 @@ sources:
     enabled: true
     options:
       url: "https://www.pokemoncenter.com/"
+      # Confidence gate. Lower = more probes; higher = fewer probes but
+      # some drops missed.
+      gate_min_sources: 1        # at least this many derivative sources
+      gate_window_minutes: 20    # ...must have fired within this window
       # Profiles supported by curl_cffi 0.7.x (what our
       # requirements-queueit.txt pins). If you bump to 0.8+ you can add
       # chrome131 / chrome133 back to this list.

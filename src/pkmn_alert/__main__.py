@@ -27,6 +27,13 @@ DEFAULT_USER_AGENT = (
     "python-httpx/0.27 for personal restock notifications"
 )
 
+# Kept in sync with sources/queueit.py's GATE_SIGNAL_KINDS/RETAILERS.
+# The queueit gate reads these same values via its options block; we
+# only apply them here to decide what qualifies as a "signal" worth
+# writing to state.signal_log in the first place.
+_SIGNAL_KINDS = {"queue", "restock", "preorder"}
+_SIGNAL_RETAILERS = {"pokemoncenter", "unknown"}
+
 
 def _build_arg_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
@@ -124,11 +131,29 @@ def main(argv: list[str] | None = None) -> int:
             log.info("fired %d due reminder(s) before fetch", fired)
 
     # ---- fetch ----
-    all_events = []
+    #
+    # We fetch each source in turn and dedupe its output IMMEDIATELY, so
+    # that the signal_log used by downstream sources' confidence gates
+    # already reflects this tick's fresh events. Sources are ordered so
+    # that any source with a gate check (currently just queueit) runs
+    # LAST — this way it sees Reddit et al's fresh events from this same
+    # tick and can decide whether to spend its request budget.
     from .sources.base import SourceContext
     ctx = SourceContext(state=state, user_agent=args.user_agent)
 
-    for scfg in cfg.sources:
+    # queueit-type sources sort to the end. Any future gate-checking
+    # source can flip a `runs_after_signals` attribute or use the same
+    # type name to opt into "run last".
+    def _source_order(scfg):
+        return 1 if scfg.type == "queueit" else 0
+
+    sources_ordered = sorted(cfg.sources, key=_source_order)
+
+    all_events: list = []
+    fresh: list = []
+    total_fetched = 0
+
+    for scfg in sources_ordered:
         if not scfg.enabled:
             log.debug("source %s disabled; skipping", scfg.id)
             continue
@@ -145,20 +170,33 @@ def main(argv: list[str] | None = None) -> int:
             # should never crash the run. Log with traceback and move on.
             log.exception("source %s raised unexpectedly", scfg.id)
             continue
+
         log.info("source %s produced %d events", scfg.id, len(events))
+        total_fetched += len(events)
         all_events.extend(events)
 
-    # ---- dedupe ----
-    fresh = []
-    for event in all_events:
-        key = event.dedupe_key()
-        if state.has_seen(key):
-            log.debug("dedupe hit for %s (%s)", key, event.title[:60])
-            continue
-        state.mark_seen(key, now)
-        fresh.append(event)
+        # Per-source dedupe + signal-log update. Doing this inline (rather
+        # than in a separate pass after the loop) is what lets downstream
+        # sources' gate checks see this tick's fresh events.
+        for event in events:
+            key = event.dedupe_key()
+            if state.has_seen(key):
+                log.debug("dedupe hit for %s (%s)", key, event.title[:60])
+                continue
+            state.mark_seen(key, now)
+            fresh.append(event)
 
-    log.info("fetched=%d fresh=%d", len(all_events), len(fresh))
+            # Record a signal for the confidence gate. We only credit
+            # derivative sources — the queueit source doesn't get to
+            # justify its own next probe — and only kinds/retailers we
+            # care about so random deal chatter doesn't burn our budget.
+            if scfg.type != "queueit" and event.kind in _SIGNAL_KINDS \
+                    and event.retailer in _SIGNAL_RETAILERS:
+                state.record_signal(
+                    scfg.id, event.kind, event.retailer, now,
+                )
+
+    log.info("fetched=%d fresh=%d", total_fetched, len(fresh))
 
     # ---- seed-only short circuit ----
     if args.seed_only:

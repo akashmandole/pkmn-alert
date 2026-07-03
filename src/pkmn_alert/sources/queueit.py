@@ -87,6 +87,28 @@ MAX_BODY_BYTES = 200_000
 # trying again. Prevents cascading rate-limit noise.
 COOLDOWN_ON_BLOCK = timedelta(minutes=30)
 
+# Default gate policy. Overridable per-source in sources.yaml. The gate
+# only lets a probe through when a fresh drop-shaped event from at least
+# ``gate_min_sources`` distinct derivative sources has landed in the
+# ``gate_window`` immediately preceding this tick. Reasoning:
+#   - Cuts our pokemoncenter.com traffic from ~288 requests/day to
+#     roughly the number of real drop windows per week (single digits).
+#   - Dramatically reduces the surface area for Akamai to fingerprint
+#     our shared GH Actions IP range.
+#   - The cost is that a drop with zero Reddit chatter would go
+#     undetected for one extra tick — but Reddit chatter shows up within
+#     seconds in practice, well inside our 5-min window.
+DEFAULT_GATE_WINDOW_MINUTES = 20
+DEFAULT_GATE_MIN_SOURCES = 1
+# Once we CONFIRM an active queue we keep probing every tick for this
+# long. Catches multi-wave drops, queue closing/re-opening, and the
+# "queue disappeared → drop went live" moment.
+DEFAULT_BURST_MINUTES = 30
+# Kinds and retailers that count toward the gate. A random "Pokemon plush
+# deal" post shouldn't burn our PC probe budget.
+GATE_SIGNAL_KINDS = {"queue", "restock", "preorder"}
+GATE_SIGNAL_RETAILERS = {"pokemoncenter", "unknown"}
+
 
 class QueueItSource(Source):
     def fetch(self, ctx: SourceContext) -> list[DropEvent]:
@@ -95,6 +117,40 @@ class QueueItSource(Source):
         if ctx.state.is_in_cooldown(self.id, now):
             log.info("[%s] in cooldown; skipping this tick", self.id)
             return []
+
+        # Confidence gate — only probe pokemoncenter.com when we already
+        # have a hint from another source. Burst mode bypasses the gate.
+        gate_window = timedelta(minutes=int(
+            self.options.get("gate_window_minutes", DEFAULT_GATE_WINDOW_MINUTES)
+        ))
+        min_sources = int(self.options.get("gate_min_sources", DEFAULT_GATE_MIN_SOURCES))
+        allowed_kinds = set(self.options.get("signal_kinds") or GATE_SIGNAL_KINDS)
+        allowed_retailers = set(self.options.get("signal_retailers") or GATE_SIGNAL_RETAILERS)
+
+        if ctx.state.is_in_probe_burst(now):
+            log.info(
+                "[%s] burst active until %s; bypassing gate",
+                self.id, ctx.state.probe_burst_until,
+            )
+        else:
+            recent = ctx.state.distinct_signal_sources_since(
+                since=now - gate_window,
+                now=now,
+                exclude={self.id},
+                kinds=allowed_kinds,
+                retailers=allowed_retailers,
+            )
+            if len(recent) < min_sources:
+                log.info(
+                    "[%s] gate closed: %d qualifying source(s) in last %s "
+                    "< threshold %d; skipping probe",
+                    self.id, len(recent), gate_window, min_sources,
+                )
+                return []
+            log.info(
+                "[%s] gate open: %d qualifying source(s) fired recently: %s",
+                self.id, len(recent), sorted(recent),
+            )
 
         url: str = self.options.get("url", DEFAULT_URL)
         # Randomize the ClientHello a bit across runs so we don't paint the
