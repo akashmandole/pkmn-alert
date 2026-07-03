@@ -18,8 +18,14 @@ sources:
     enabled: true
     options:
       subreddits:
+        # r/PokemonRestocks is the highest-signal free source we have and
+        # it works reliably from GitHub Actions runners.
+        # r/PKMNTCGDeals is disabled by default because Reddit's per-ASN
+        # throttle 429s our second consecutive request from a cloud IP,
+        # even with a 6-second spacer between calls. If you run this
+        # from a residential IP (e.g. a home server), safely add it back.
         - PokemonRestocks
-        - PKMNTCGDeals
+        # - PKMNTCGDeals
       limit: 25
       # Subreddits are already Pokemon-restock-focused, so we DO NOT filter
       # at the source level — subscriber-level `filters.retailers` /

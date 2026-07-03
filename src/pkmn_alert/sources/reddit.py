@@ -86,14 +86,25 @@ class RedditSource(Source):
                 continue
 
             if resp.status_code == 429 or resp.status_code == 403:
+                # One sub getting rate-limited should NOT freeze the whole
+                # source — earlier subs may have succeeded and later ticks
+                # might see this sub recover. Skip just this sub and return
+                # whatever we already gathered.
                 log.warning(
-                    "[%s] reddit r/%s returned HTTP %s; cooling down %s",
-                    self.id, sub, resp.status_code, RATE_LIMIT_COOLDOWN,
+                    "[%s] reddit r/%s returned HTTP %s; skipping this sub for this tick",
+                    self.id, sub, resp.status_code,
                 )
-                now = datetime.now(tz=timezone.utc)
-                ctx.state.set_cooldown(self.id, now + RATE_LIMIT_COOLDOWN)
-                # Return whatever we already gathered from prior subs.
-                return events
+                # Only fall back to a full-source cooldown when EVERY sub
+                # in this run failed and we have nothing to show for it.
+                is_last_sub = i == len(subs) - 1
+                if is_last_sub and not events:
+                    log.warning(
+                        "[%s] all subs failed with no events; cooling source down %s",
+                        self.id, RATE_LIMIT_COOLDOWN,
+                    )
+                    now = datetime.now(tz=timezone.utc)
+                    ctx.state.set_cooldown(self.id, now + RATE_LIMIT_COOLDOWN)
+                continue
 
             if resp.status_code != 200:
                 log.warning("[%s] reddit r/%s returned HTTP %s", self.id, sub, resp.status_code)
