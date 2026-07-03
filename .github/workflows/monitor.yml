@@ -71,6 +71,10 @@ jobs:
 
       - name: Run monitor
         env:
+          # Make the src/ layout importable without a full editable install.
+          # An alternative is `pip install -e .` in the install step; the
+          # PYTHONPATH approach is simpler and equivalent for our use.
+          PYTHONPATH: src
           # === user-configurable secrets ===
           # Set these in your repo Settings -> Secrets and variables -> Actions.
           NTFY_TOPIC:         ${{ secrets.NTFY_TOPIC }}
