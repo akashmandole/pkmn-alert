@@ -1,30 +1,8 @@
 {
   "cooldowns": {
-    "queueit": "2026-07-08T23:06:46.830359+00:00"
+    "reddit": "2026-07-08T23:57:54.101426+00:00"
   },
-  "pending_reminders": [
-    {
-      "attempt": 1,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-07-08T22:51:46.121878+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-07-08T22:22:38+00:00",
-        "kind": "restock",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "When do i start waking up early to check for drops on pokemon center (30th anniversary)",
-        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1ur7otm/when_do_i_start_waking_up_early_to_check_for/"
-      },
-      "subscriber_id": "me"
-    }
-  ],
+  "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
@@ -105,20 +83,7 @@
     "e729b9cff49c4a78": "2026-07-08T01:12:27.289629+00:00",
     "f9613f969221e5a9": "2026-07-08T09:37:52.531785+00:00"
   },
-  "signal_log": [
-    {
-      "at": "2026-07-08T22:36:46.121878+00:00",
-      "kind": "restock",
-      "retailer": "pokemoncenter",
-      "source_id": "reddit"
-    },
-    {
-      "at": "2026-07-08T22:36:46.121878+00:00",
-      "kind": "restock",
-      "retailer": "unknown",
-      "source_id": "reddit"
-    }
-  ],
+  "signal_log": [],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
