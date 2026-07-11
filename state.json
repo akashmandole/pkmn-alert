@@ -1,7 +1,5 @@
 {
-  "cooldowns": {
-    "reddit": "2026-07-11T11:25:49.295884+00:00"
-  },
+  "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
