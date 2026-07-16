@@ -1,28 +1,8 @@
 {
-  "cooldowns": {},
-  "pending_reminders": [
-    {
-      "attempt": 1,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-07-16T16:21:33.719771+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-07-16T15:07:19+00:00",
-        "kind": "queue",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "Pokemon Center Queue Monitor - Security Change Detected is in stock at Pokemon Center Queue Monitor (Beta) for $50.00",
-        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1uy5j7l/pokemon_center_queue_monitor_security_change/"
-      },
-      "subscriber_id": "me"
-    }
-  ],
+  "cooldowns": {
+    "reddit": "2026-07-16T17:53:24.804409+00:00"
+  },
+  "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
@@ -107,14 +87,7 @@
     "f46699b3533b401b": "2026-07-16T01:03:51.616982+00:00",
     "ff2a96904c729820": "2026-07-16T16:06:33.719771+00:00"
   },
-  "signal_log": [
-    {
-      "at": "2026-07-16T16:06:33.719771+00:00",
-      "kind": "queue",
-      "retailer": "pokemoncenter",
-      "source_id": "reddit"
-    }
-  ],
+  "signal_log": [],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
