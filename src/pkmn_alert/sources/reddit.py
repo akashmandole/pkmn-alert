@@ -64,6 +64,72 @@ RATE_LIMIT_COOLDOWN = timedelta(minutes=15)
 # defensively clean any residual tags before matching keywords.
 _TAG_RE = re.compile(r"<[^>]+>")
 
+# --- Classification patterns -------------------------------------------------
+#
+# All matchers below use ``\b`` word boundaries because a naive substring
+# check produced a real-world false positive: the title
+#   "Pokemon Center PSA 10 Special Delivery Bidoof Sells $3500 ..."
+# was classified as kind=restock because ``"live" in "delivery"`` is True,
+# then paired with retailer=pokemoncenter (title mentions "Pokemon Center"),
+# then survived the ``me`` subscriber's filter, then ntfy'd the user's phone
+# at 04:49 UTC on 2026-07-20. See tests/test_reddit_parser.py for regressions.
+#
+# Ordering matters: queue > preorder > restock > deal > news. The first
+# pattern that matches wins.
+_KIND_MATCHERS: list[tuple[str, re.Pattern[str]]] = [
+    ("queue",    re.compile(r"\b(queue|waiting[\s-]?room)\b", re.I)),
+    ("preorder", re.compile(r"\bpre[-\s]?orders?\b", re.I)),
+    # ``live`` here must be a WORD, not a substring of ``delivery``/``alive``.
+    # ``drops?`` and ``dropped`` are separate word forms; ``dropping`` is
+    # intentionally NOT included because "price is dropping" is speculation,
+    # not a live restock signal.
+    ("restock",  re.compile(
+        r"\b(restock|back\s+in\s+stock|is\s+live|now\s+live|goes?\s+live"
+        r"|live\s+now|just\s+dropped|dropped|drops?\s+now|drops?)\b",
+        re.I,
+    )),
+    ("deal",     re.compile(r"\b(deal|discount|\d+\s*%\s*off|clearance|on\s+sale)\b", re.I)),
+]
+
+_RETAILER_MATCHERS: list[tuple[str, re.Pattern[str]]] = [
+    ("pokemoncenter", re.compile(r"\b(pok[eé]mon\s+center|pokemoncenter|pokecenter|pkmn\s+center|pkc)\b", re.I)),
+    ("target",        re.compile(r"\btarget\b", re.I)),
+    ("walmart",       re.compile(r"\bwal[\s-]?mart\b", re.I)),
+    ("bestbuy",       re.compile(r"\bbest\s?buy\b", re.I)),
+    ("costco",        re.compile(r"\bcostco\b", re.I)),
+    ("amazon",        re.compile(r"\bamazon\b", re.I)),
+    ("gamestop",      re.compile(r"\bgamestop\b", re.I)),
+]
+
+# --- Noise blocklist ---------------------------------------------------------
+#
+# r/PokeInvesting in particular is full of secondary-market chatter that
+# frequently mentions "Pokemon Center" but is NOT a drop announcement.
+# We downgrade posts matching any of these patterns to kind=news +
+# retailer=unknown so subscriber filters (which reject news / require a
+# real retailer) never wake the user up. Keeping these as separate rules
+# rather than deleting them entirely so the debug-stdout subscriber still
+# logs them for review.
+_NOISE_MATCHERS: list[re.Pattern[str]] = [
+    # Secondary-market sale posts: "Sells $3500", "Sold for $2850", etc.
+    re.compile(r"\bsells?\s+(?:for\s+)?\$", re.I),
+    re.compile(r"\bsold\s+(?:for\s+)?\$", re.I),
+    # eBay affiliate/promotion posts
+    re.compile(r"\bpromotion\s+by\s+ebay\b", re.I),
+    re.compile(r"\bebay\s+sales?\b", re.I),
+    # Analytics / price-movement posts
+    re.compile(r"\bpast\s+(?:year|month|week|day|quarter)\b", re.I),
+    re.compile(r"\bup\s+\d+\s*%", re.I),
+    re.compile(r"\bdown\s+\d+\s*%", re.I),
+]
+
+
+def _is_noise(title: str) -> bool:
+    """True if the title looks like secondary-market/analytics chatter that
+    should never reach an end-user notification, regardless of what keywords
+    it happens to contain."""
+    return any(p.search(title) for p in _NOISE_MATCHERS)
+
 
 class RedditSource(Source):
     def fetch(self, ctx: SourceContext) -> list[DropEvent]:
@@ -142,15 +208,26 @@ class RedditSource(Source):
             # Best-effort recover which sub this came from (Reddit stamps
             # the entry.tags with subreddit info in the combined feed).
             sub_name = _extract_subreddit(entry) or ""
+
+            # Secondary-market / analytics chatter gets downgraded to
+            # news+unknown so subscriber `kinds` / `retailers` filters
+            # naturally exclude it. See _NOISE_MATCHERS for rationale.
+            if _is_noise(title):
+                kind = "news"
+                retailer = "unknown"
+            else:
+                kind = _infer_kind(title)
+                retailer = _infer_retailer(title)
+
             events.append(
                 DropEvent(
                     source=self.id,
                     title=title,
                     url=link,
                     detected_at=_entry_time(entry),
-                    kind=_infer_kind(title),
+                    kind=kind,
                     region="US",
-                    retailer=_infer_retailer(title),
+                    retailer=retailer,
                     raw={"subreddit": sub_name, "id": entry_id},
                 )
             )
@@ -210,32 +287,15 @@ def _entry_time(entry: Any) -> datetime:
 
 
 def _infer_kind(title: str) -> str:
-    t = title.lower()
-    if "queue" in t or "waiting room" in t or "waitingroom" in t:
-        return "queue"
-    if "preorder" in t or "pre-order" in t or "pre order" in t:
-        return "preorder"
-    if "restock" in t or "back in stock" in t or "live" in t or "dropped" in t or "drop" in t:
-        return "restock"
-    if "deal" in t or "% off" in t or "discount" in t or "sale" in t:
-        return "deal"
+    for label, pattern in _KIND_MATCHERS:
+        if pattern.search(title):
+            return label
     return "news"
 
 
 def _infer_retailer(title: str) -> str:
-    t = _TAG_RE.sub("", title).lower()
-    if "pokemon center" in t or "pokémon center" in t or "pokecenter" in t:
-        return "pokemoncenter"
-    if "target" in t:
-        return "target"
-    if "walmart" in t:
-        return "walmart"
-    if "best buy" in t or "bestbuy" in t:
-        return "bestbuy"
-    if "costco" in t:
-        return "costco"
-    if "amazon" in t:
-        return "amazon"
-    if "gamestop" in t:
-        return "gamestop"
+    clean = _TAG_RE.sub("", title)
+    for label, pattern in _RETAILER_MATCHERS:
+        if pattern.search(clean):
+            return label
     return "unknown"
