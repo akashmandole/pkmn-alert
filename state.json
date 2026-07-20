@@ -1,55 +1,14 @@
 {
   "alerted_drops": {
     "gamestop:news": "2026-07-20T20:07:53.746722+00:00",
+    "pokemoncenter:preorder": "2026-07-20T21:22:14.798599+00:00",
     "pokemoncenter:queue": "2026-07-20T20:07:53.746722+00:00",
-    "unknown:news": "2026-07-20T20:07:53.746722+00:00",
-    "unknown:restock": "2026-07-20T20:07:53.746722+00:00"
+    "unknown:news": "2026-07-20T21:22:14.798599+00:00",
+    "unknown:restock": "2026-07-20T20:07:53.746722+00:00",
+    "walmart:news": "2026-07-20T21:22:14.798599+00:00"
   },
   "cooldowns": {},
-  "pending_reminders": [
-    {
-      "attempt": 1,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-07-20T20:22:53.746722+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-07-20T18:23:38+00:00",
-        "kind": "queue",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "Pokemon Center Queue",
-        "url": "https://www.reddit.com/r/PokeInvesting/comments/1v1tlgs/pokemon_center_queue/"
-      },
-      "subscriber_id": "me"
-    },
-    {
-      "attempt": 2,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-07-20T20:37:53.746722+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-07-20T18:23:38+00:00",
-        "kind": "queue",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "Pokemon Center Queue",
-        "url": "https://www.reddit.com/r/PokeInvesting/comments/1v1tlgs/pokemon_center_queue/"
-      },
-      "subscriber_id": "me"
-    }
-  ],
+  "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
@@ -61,8 +20,10 @@
     "1344e8870a020033": "2026-07-20T18:27:20.786099+00:00",
     "141a30ad24bd903a": "2026-07-20T07:49:11.848127+00:00",
     "17b4b405f77d87ed": "2026-07-20T07:49:11.848127+00:00",
+    "1889d388a9bbc33e": "2026-07-20T21:22:14.798599+00:00",
     "1e46a7569c74f788": "2026-07-20T07:49:11.848127+00:00",
     "2ae30cd943dd24dd": "2026-07-20T20:07:53.746722+00:00",
+    "2c51d98e10cf09e1": "2026-07-20T21:22:14.798599+00:00",
     "2f18364b7d4a8933": "2026-07-20T07:49:11.848127+00:00",
     "3131c6e9fc58055f": "2026-07-20T07:49:11.848127+00:00",
     "34383c95912ea1a4": "2026-07-20T20:07:53.746722+00:00",
@@ -71,6 +32,7 @@
     "3c725e0f580f9627": "2026-07-20T14:56:12.464898+00:00",
     "3d5a5c3ce2e309c1": "2026-07-20T20:07:53.746722+00:00",
     "3ea480c399ca2d9e": "2026-07-20T16:23:45.670142+00:00",
+    "41090c0ba49dafdc": "2026-07-20T21:22:14.798599+00:00",
     "4516b69523369c82": "2026-07-20T20:07:53.746722+00:00",
     "4633f686954b46ca": "2026-07-20T20:07:53.746722+00:00",
     "48cc1e011433faa5": "2026-07-20T20:07:53.746722+00:00",
@@ -80,9 +42,9 @@
     "5c02470c715e2054": "2026-07-20T04:49:13.263943+00:00",
     "5f84a9adf695778b": "2026-07-20T20:07:53.746722+00:00",
     "635cf084a84a7ffa": "2026-07-20T20:07:53.746722+00:00",
-    "67ce74aafa9d338d": "2026-07-19T20:25:50.272118+00:00",
     "6b3dc6a268f57313": "2026-07-20T18:27:20.786099+00:00",
     "6dd3779e172baed2": "2026-07-20T14:56:12.464898+00:00",
+    "723f44a5c1fa211b": "2026-07-20T21:22:14.798599+00:00",
     "7aa14b8a7a9faa6a": "2026-07-20T20:07:53.746722+00:00",
     "7f61e3ab5a179ccc": "2026-07-20T07:49:11.848127+00:00",
     "7f7fdf6480bc36a1": "2026-07-20T07:49:11.848127+00:00",
@@ -121,20 +83,8 @@
   },
   "signal_log": [
     {
-      "at": "2026-07-20T20:07:53.746722+00:00",
-      "kind": "restock",
-      "retailer": "unknown",
-      "source_id": "reddit"
-    },
-    {
-      "at": "2026-07-20T20:07:53.746722+00:00",
-      "kind": "restock",
-      "retailer": "unknown",
-      "source_id": "reddit"
-    },
-    {
-      "at": "2026-07-20T20:07:53.746722+00:00",
-      "kind": "queue",
+      "at": "2026-07-20T21:22:14.798599+00:00",
+      "kind": "preorder",
       "retailer": "pokemoncenter",
       "source_id": "reddit"
     }
@@ -142,7 +92,7 @@
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1v1v0yv"
+      "last_id_combined": "t3_1v1ya01"
     }
   }
 }
