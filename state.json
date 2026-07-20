@@ -1,13 +1,100 @@
 {
   "cooldowns": {},
-  "pending_reminders": [],
+  "pending_reminders": [
+    {
+      "attempt": 1,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-07-20T18:42:20.786099+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-07-20T17:12:34+00:00",
+        "kind": "queue",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "Pokemon Center Queue is up!",
+        "url": "https://www.reddit.com/r/PKMNTCGDeals/comments/1v1rlab/pokemon_center_queue_is_up/"
+      },
+      "subscriber_id": "me"
+    },
+    {
+      "attempt": 1,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-07-20T18:42:20.786099+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-07-20T17:12:18+00:00",
+        "kind": "queue",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "Pokemon Center Queue is Live!",
+        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1v1rkzh/pokemon_center_queue_is_live/"
+      },
+      "subscriber_id": "me"
+    },
+    {
+      "attempt": 1,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-07-20T18:42:20.786099+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-07-20T17:10:12+00:00",
+        "kind": "queue",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "Pokemon Center Queue Monitor - Security Change Detected is in stock at Pokemon Center Queue Monitor (Beta) for $50.00",
+        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1v1ritz/pokemon_center_queue_monitor_security_change/"
+      },
+      "subscriber_id": "me"
+    },
+    {
+      "attempt": 1,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-07-20T18:42:20.786099+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-07-20T16:28:47+00:00",
+        "kind": "queue",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "Recent Pokemon Center Queue Start Times",
+        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1v1qdd7/recent_pokemon_center_queue_start_times/"
+      },
+      "subscriber_id": "me"
+    }
+  ],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
+    "015675264ecfcd26": "2026-07-20T18:27:20.786099+00:00",
     "0236079a0a978e8f": "2026-07-19T19:33:18.596039+00:00",
     "061c69ccceb0dc0e": "2026-07-20T07:49:11.848127+00:00",
     "0c3c492e173c866f": "2026-07-19T21:25:14.747734+00:00",
     "0f018835c11dd511": "2026-07-20T07:49:11.848127+00:00",
+    "1344e8870a020033": "2026-07-20T18:27:20.786099+00:00",
     "141a30ad24bd903a": "2026-07-20T07:49:11.848127+00:00",
     "17b4b405f77d87ed": "2026-07-20T07:49:11.848127+00:00",
     "1a6372aa1a6c4a27": "2026-07-19T19:33:18.596039+00:00",
@@ -15,6 +102,7 @@
     "2df9e61fc94452df": "2026-07-19T19:33:18.596039+00:00",
     "2f18364b7d4a8933": "2026-07-20T07:49:11.848127+00:00",
     "3131c6e9fc58055f": "2026-07-20T07:49:11.848127+00:00",
+    "3653da77496a974a": "2026-07-20T18:27:20.786099+00:00",
     "3664d4974bc13998": "2026-07-19T19:33:18.596039+00:00",
     "3924340cb0b89b76": "2026-07-19T19:33:18.596039+00:00",
     "3c725e0f580f9627": "2026-07-20T14:56:12.464898+00:00",
@@ -27,6 +115,7 @@
     "5c02470c715e2054": "2026-07-20T04:49:13.263943+00:00",
     "610d58cef0037ea5": "2026-07-19T19:33:18.596039+00:00",
     "67ce74aafa9d338d": "2026-07-19T20:25:50.272118+00:00",
+    "6b3dc6a268f57313": "2026-07-20T18:27:20.786099+00:00",
     "6dd3779e172baed2": "2026-07-20T14:56:12.464898+00:00",
     "6ded2f8649ca6a55": "2026-07-19T19:33:18.596039+00:00",
     "74e392d1159ade78": "2026-07-19T19:33:18.596039+00:00",
@@ -44,14 +133,19 @@
     "9e78d38bd7be765f": "2026-07-19T19:33:18.596039+00:00",
     "a29a0219318fd466": "2026-07-19T19:33:18.596039+00:00",
     "a3782ac8a5cdbc60": "2026-07-20T16:23:45.670142+00:00",
+    "a6c92701e0b1dda6": "2026-07-20T18:27:20.786099+00:00",
     "af68df5f1759d636": "2026-07-20T04:49:13.263943+00:00",
     "af9363d17a535c2d": "2026-07-19T19:33:18.596039+00:00",
+    "b8209254ffc33d3c": "2026-07-20T18:27:20.786099+00:00",
+    "b889cd07e523c212": "2026-07-20T18:27:20.786099+00:00",
     "bde6a0e78fc4b556": "2026-07-19T19:33:18.596039+00:00",
     "c2cfcec0c4ae3e92": "2026-07-19T19:33:18.596039+00:00",
     "c5bee5f396289f4b": "2026-07-19T19:33:18.596039+00:00",
+    "c6d597bfa83149b4": "2026-07-20T18:27:20.786099+00:00",
     "cf6968c1562d29fb": "2026-07-19T19:33:18.596039+00:00",
     "d37f84fd8d41a4e9": "2026-07-19T19:33:18.596039+00:00",
     "d9f588e6b6fa193e": "2026-07-19T19:33:18.596039+00:00",
+    "e3cf54fabd44b148": "2026-07-20T18:27:20.786099+00:00",
     "e824f66bd674fbe6": "2026-07-20T07:49:11.848127+00:00",
     "e92ac5d4ae7a6740": "2026-07-20T04:49:13.263943+00:00",
     "eb2d9870a553bdf8": "2026-07-20T04:49:13.263943+00:00",
@@ -61,11 +155,42 @@
     "f67824f4cd109e0e": "2026-07-19T19:33:18.596039+00:00",
     "f92d299e0b3b00ff": "2026-07-20T04:49:13.263943+00:00"
   },
-  "signal_log": [],
+  "signal_log": [
+    {
+      "at": "2026-07-20T18:27:20.786099+00:00",
+      "kind": "queue",
+      "retailer": "pokemoncenter",
+      "source_id": "reddit"
+    },
+    {
+      "at": "2026-07-20T18:27:20.786099+00:00",
+      "kind": "queue",
+      "retailer": "pokemoncenter",
+      "source_id": "reddit"
+    },
+    {
+      "at": "2026-07-20T18:27:20.786099+00:00",
+      "kind": "queue",
+      "retailer": "pokemoncenter",
+      "source_id": "reddit"
+    },
+    {
+      "at": "2026-07-20T18:27:20.786099+00:00",
+      "kind": "restock",
+      "retailer": "pokemoncenter",
+      "source_id": "reddit"
+    },
+    {
+      "at": "2026-07-20T18:27:20.786099+00:00",
+      "kind": "queue",
+      "retailer": "pokemoncenter",
+      "source_id": "reddit"
+    }
+  ],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1v1q2ni"
+      "last_id_combined": "t3_1v1tl0w"
     }
   }
 }
