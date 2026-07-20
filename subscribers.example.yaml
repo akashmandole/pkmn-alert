@@ -59,11 +59,19 @@ subscribers:
       max_per_day: 20
       quiet_hours: null                        # e.g. "23:00-06:00" in your tz
 
-    # Send follow-up reminder pushes N minutes after the original alert.
-    # Empty list = one-and-done. Each reminder re-evaluates its confidence
-    # label at fire time, so a [MED] alert can naturally become a [HIGH]
-    # reminder if the queueit source confirms the drop in the interim.
-    reminders_minutes: [15]
+    # Follow-up reminder pushes N minutes after the original alert.
+    #
+    # The dispatcher enforces a per-drop budget: at most ONE initial
+    # push + one push per entry in this list, all for the SAME drop
+    # (identified by retailer+kind). Multiple Reddit posts about the
+    # same live drop are coalesced within the tick, and any additional
+    # posts arriving in later ticks within a 60-min window are silently
+    # suppressed. So `[15, 30]` = at most 3 pings per drop, all spaced.
+    #
+    # Empty list = one-and-done (initial only). Each reminder re-evaluates
+    # its confidence label at fire time, so a [MED] alert can become a
+    # [HIGH] reminder if the queueit source confirms in the interim.
+    reminders_minutes: [15, 30]
 
   ############################################################
   # Example: a second person, SMS only, only wants queue alerts (never deals)

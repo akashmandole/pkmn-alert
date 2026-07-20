@@ -62,6 +62,14 @@ class State:
     # multi-wave drops or catching the queue re-opening. ISO8601 timestamp
     # or empty string when no burst is active.
     probe_burst_until: str = ""
+    # Drop-level notification suppression. Key = "<retailer>:<kind>" (see
+    # ``drop_key()``). Value = ISO8601 of the most recent alert we fired
+    # for that drop identity. Used by the dispatcher to ensure a single
+    # drop event doesn't produce back-to-back pushes just because
+    # multiple Reddit posts describe the same live drop. Reminders are
+    # unaffected — they were scheduled at the moment of the initial
+    # dispatch and fire independently on their own cadence.
+    alerted_drops: dict[str, str] = field(default_factory=dict)
 
     def has_seen(self, key: str) -> bool:
         return key in self.seen
@@ -161,6 +169,38 @@ class State:
     def set_probe_burst(self, until: datetime) -> None:
         self.probe_burst_until = until.astimezone(timezone.utc).isoformat()
 
+    @staticmethod
+    def drop_key(retailer: str, kind: str) -> str:
+        """Canonical identity for a drop. Two events with the same key
+        are treated as the same real-world drop event, regardless of
+        how many Reddit posts describe them or what their titles say.
+
+        Kept lowercase + colon-delimited so state.json diffs stay stable
+        and human-readable."""
+        return f"{(retailer or 'unknown').lower()}:{(kind or 'unknown').lower()}"
+
+    def mark_drop_alerted(self, drop_key: str, when: datetime) -> None:
+        """Record that we just dispatched an alert about this drop.
+
+        Overwrites any earlier timestamp — the window for suppression is
+        measured from the MOST RECENT alert, not the first. This means a
+        genuine multi-wave drop where reminders are already firing won't
+        keep extending suppression forever; once alerts stop for the full
+        window, the next real signal alerts again."""
+        self.alerted_drops[drop_key] = when.astimezone(timezone.utc).isoformat()
+
+    def was_drop_recently_alerted(
+        self, drop_key: str, within: timedelta, now: datetime
+    ) -> bool:
+        raw = self.alerted_drops.get(drop_key)
+        if not raw:
+            return False
+        try:
+            when = datetime.fromisoformat(raw)
+        except ValueError:
+            return False
+        return (now - when) <= within
+
     def prune(self, now: datetime) -> None:
         cutoff = now - DEDUPE_TTL
         expired = [
@@ -210,6 +250,16 @@ class State:
         if self.probe_burst_until and not self.is_in_probe_burst(now):
             self.probe_burst_until = ""
 
+        # Drop suppression entries older than 2h can no longer influence
+        # a 60-min dispatcher window. Keeping them wastes state.json space
+        # and would confuse anyone reading the file for debugging.
+        drop_cutoff = now - timedelta(hours=2)
+        self.alerted_drops = {
+            k: v
+            for k, v in self.alerted_drops.items()
+            if _parse_iso(v) > drop_cutoff
+        }
+
 
 def _parse_iso(raw: str) -> datetime:
     try:
@@ -236,6 +286,7 @@ def load(path: Path) -> State:
         recent_confirmations=dict(raw.get("recent_confirmations", {})),
         signal_log=list(raw.get("signal_log", [])),
         probe_burst_until=str(raw.get("probe_burst_until", "") or ""),
+        alerted_drops=dict(raw.get("alerted_drops", {})),
     )
 
 
@@ -248,6 +299,7 @@ def save(path: Path, state: State) -> None:
         "recent_confirmations": state.recent_confirmations,
         "signal_log": state.signal_log,
         "probe_burst_until": state.probe_burst_until,
+        "alerted_drops": state.alerted_drops,
     }
     path.parent.mkdir(parents=True, exist_ok=True)
     # sort_keys so diffs are stable — important because the GitHub Actions

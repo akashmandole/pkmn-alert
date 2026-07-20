@@ -62,6 +62,17 @@ REMINDER_MAX_LATENESS = timedelta(minutes=15)
 # stay in sync with sources/queueit.py DEFAULT_BURST_MINUTES.
 PROBE_BURST_DURATION = timedelta(minutes=30)
 
+# Once we've fired an alert for a given (retailer, kind) pair, suppress
+# any further alerts about the SAME drop for this long. Prevents a real
+# drop from producing back-to-back pushes just because Reddit is buzzing
+# about it. Reminders scheduled at the moment of the initial alert are
+# unaffected — they fire on their own cadence.
+#
+# Value chosen to comfortably exceed the widest sensible reminders_minutes
+# spread ([15, 30]), so the "3 pings per drop" budget is enforced end-to-end:
+# initial + reminder@+15 + reminder@+30 = 3, then suppression relaxes.
+DROP_DEDUPE_WINDOW = timedelta(minutes=60)
+
 
 @dataclass
 class DispatchResult:
@@ -71,6 +82,11 @@ class DispatchResult:
     confirmations_recorded: int = 0
     skipped_filtered: int = 0
     skipped_unconfigured: int = 0
+    #: Events collapsed into an earlier event this tick (same retailer+kind).
+    coalesced: int = 0
+    #: Events suppressed because we already alerted about this drop in a
+    #: recent tick and the suppression window hasn't elapsed yet.
+    suppressed_recent_drop: int = 0
     failed: int = 0
 
 
@@ -215,6 +231,34 @@ def dispatch(
     if not dispatchable:
         return result
 
+    # 1.5) Coalesce + cross-tick dedupe.
+    #
+    # A single real-world drop typically produces N Reddit posts within
+    # a few minutes (e.g. "Queue is up!", "Queue is Live!", "PKC Drop at
+    # 10:30 AM PST" — all one event). Before this step, N posts meant N
+    # back-to-back pushes. After this step:
+    #   - WITHIN this tick: events with the same (retailer, kind) collapse
+    #     to a single representative event (the earliest by detected_at).
+    #     Rest are counted as ``result.coalesced``.
+    #   - ACROSS ticks: if an earlier tick already fired an alert for this
+    #     (retailer, kind) within DROP_DEDUPE_WINDOW, the whole group is
+    #     dropped. Rest are counted as ``result.suppressed_recent_drop``.
+    #
+    # Runs BEFORE notifier prep so we don't waste time building notifiers
+    # for events we're about to discard.
+    if state is not None:
+        dispatchable, coalesced_ct, suppressed_ct = _coalesce_and_dedupe(
+            dispatchable, state, now,
+        )
+        result.coalesced += coalesced_ct
+        result.suppressed_recent_drop += suppressed_ct
+        if not dispatchable:
+            log.info(
+                "no dispatchable events after coalesce+dedupe (coalesced=%d, suppressed=%d)",
+                coalesced_ct, suppressed_ct,
+            )
+            return result
+
     # 2) Prepare per-subscriber notifiers once. Notifiers are stateless
     #    (they hold config, not connections), so reuse is safe within a run.
     prepared: list[tuple[Subscriber, list[tuple[ChannelConfig, Notifier]]]] = []
@@ -239,6 +283,7 @@ def dispatch(
     # 3) Dispatch each event to each qualifying subscriber, label + queue reminders.
     for event in dispatchable:
         label = _label_for(event, state, now) if state is not None else "MED"
+        any_real_delivery = False
 
         for sub, channels in prepared:
             allowed, reason = matches(event, sub.filters, now, tz_name)
@@ -264,6 +309,7 @@ def dispatch(
                 ok = notifier.send(display, sub.id)
                 if ok:
                     result.delivered += 1
+                    any_real_delivery = True
                 else:
                     result.failed += 1
 
@@ -275,6 +321,14 @@ def dispatch(
                         state, event, sub, cfg, now,
                     )
                     result.reminders_queued += queued
+
+        # Record the drop as alerted only after a real send succeeded for
+        # SOME subscriber. On total failure (network hiccup, all filters
+        # rejected) we deliberately leave the window open so the next tick
+        # gets another shot. Note: dry_run intentionally does NOT mark, so
+        # test/preview runs remain side-effect-free w.r.t. suppression.
+        if state is not None and any_real_delivery:
+            state.mark_drop_alerted(State.drop_key(event.retailer, event.kind), now)
 
     return result
 
@@ -352,3 +406,65 @@ def _build_notifier_from_snapshot(snap: dict) -> Notifier | None:
     if not ch_type:
         return None
     return build_notifier(ChannelConfig(type=ch_type, options=dict(snap.get("options", {}))))
+
+
+def _coalesce_and_dedupe(
+    events: list[DropEvent],
+    state: State,
+    now: datetime,
+) -> tuple[list[DropEvent], int, int]:
+    """Collapse per-drop duplicates and suppress recently-alerted drops.
+
+    Returns (survivors, coalesced_count, suppressed_count).
+
+    Coalescing (within-tick): events sharing the same
+    ``State.drop_key(retailer, kind)`` collapse to one representative,
+    picked as the earliest by ``detected_at`` — that's the post whose
+    title most likely says "Queue is up" rather than a later reaction
+    thread. Ties broken by ``dedupe_key()`` for determinism.
+
+    Suppression (cross-tick): a group whose drop_key was alerted within
+    ``DROP_DEDUPE_WINDOW`` is dropped entirely; the earlier alert (and
+    its queued reminders) already carry the user."""
+    if not events:
+        return [], 0, 0
+
+    # Group by drop_key preserving input order.
+    groups: dict[str, list[DropEvent]] = {}
+    order: list[str] = []
+    for ev in events:
+        key = State.drop_key(ev.retailer, ev.kind)
+        if key not in groups:
+            groups[key] = []
+            order.append(key)
+        groups[key].append(ev)
+
+    survivors: list[DropEvent] = []
+    coalesced = 0
+    suppressed = 0
+
+    for key in order:
+        bucket = groups[key]
+
+        if state.was_drop_recently_alerted(key, DROP_DEDUPE_WINDOW, now):
+            suppressed += len(bucket)
+            titles = ", ".join(e.title[:40] for e in bucket[:3])
+            log.info(
+                "suppressed %d event(s) for drop_key=%s (alerted within %s): %s%s",
+                len(bucket), key, DROP_DEDUPE_WINDOW, titles,
+                "..." if len(bucket) > 3 else "",
+            )
+            continue
+
+        # Coalesce: pick the earliest post as the representative.
+        bucket.sort(key=lambda e: (e.detected_at, e.dedupe_key()))
+        representative = bucket[0]
+        coalesced += len(bucket) - 1
+        if len(bucket) > 1:
+            log.info(
+                "coalesced %d event(s) for drop_key=%s -> %r",
+                len(bucket), key, representative.title[:80],
+            )
+        survivors.append(representative)
+
+    return survivors, coalesced, suppressed
