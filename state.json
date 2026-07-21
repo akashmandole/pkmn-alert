@@ -6,52 +6,9 @@
     "unknown:news": "2026-07-21T15:04:47.053762+00:00"
   },
   "cooldowns": {
-    "queueit": "2026-07-21T15:34:47.796986+00:00"
+    "reddit": "2026-07-21T16:54:17.913242+00:00"
   },
-  "pending_reminders": [
-    {
-      "attempt": 1,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-07-21T15:19:47.053762+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-07-21T13:09:07+00:00",
-        "kind": "restock",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "Will Pokemon Center be doing a drop for the 30th UPC's?",
-        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1v2hzh5/will_pokemon_center_be_doing_a_drop_for_the_30th/"
-      },
-      "subscriber_id": "me"
-    },
-    {
-      "attempt": 2,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-07-21T15:34:47.053762+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-07-21T13:09:07+00:00",
-        "kind": "restock",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "Will Pokemon Center be doing a drop for the 30th UPC's?",
-        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1v2hzh5/will_pokemon_center_be_doing_a_drop_for_the_30th/"
-      },
-      "subscriber_id": "me"
-    }
-  ],
+  "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
@@ -79,7 +36,6 @@
     "3bc916fcbff355b5": "2026-07-20T23:34:02.757712+00:00",
     "3d5a5c3ce2e309c1": "2026-07-20T20:07:53.746722+00:00",
     "3e22c65681342fb8": "2026-07-21T12:56:17.148213+00:00",
-    "3ea480c399ca2d9e": "2026-07-20T16:23:45.670142+00:00",
     "40740cf428935ce8": "2026-07-21T12:56:17.148213+00:00",
     "41090c0ba49dafdc": "2026-07-20T21:22:14.798599+00:00",
     "42354963f7f91150": "2026-07-21T12:56:17.148213+00:00",
@@ -108,7 +64,6 @@
     "9749c2a664fc304a": "2026-07-21T01:03:20.486439+00:00",
     "9ddb467b417b8ca0": "2026-07-20T20:07:53.746722+00:00",
     "a211b8494f3cef6c": "2026-07-20T23:34:02.757712+00:00",
-    "a3782ac8a5cdbc60": "2026-07-20T16:23:45.670142+00:00",
     "a6c92701e0b1dda6": "2026-07-20T18:27:20.786099+00:00",
     "a8826a05db63e2e7": "2026-07-20T20:07:53.746722+00:00",
     "ab4ffb6eaeda7b5b": "2026-07-21T12:56:17.148213+00:00",
@@ -141,14 +96,7 @@
     "fb9206c18d4d5c10": "2026-07-20T20:07:53.746722+00:00",
     "ff36d02ed75144f5": "2026-07-21T12:56:17.148213+00:00"
   },
-  "signal_log": [
-    {
-      "at": "2026-07-21T15:04:47.053762+00:00",
-      "kind": "restock",
-      "retailer": "pokemoncenter",
-      "source_id": "reddit"
-    }
-  ],
+  "signal_log": [],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
