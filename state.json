@@ -1,13 +1,57 @@
 {
   "alerted_drops": {
-    "target:news": "2026-07-21T12:56:17.148213+00:00",
-    "unknown:news": "2026-07-21T12:56:17.148213+00:00",
-    "unknown:restock": "2026-07-21T12:56:17.148213+00:00"
+    "amazon:news": "2026-07-21T15:04:47.053762+00:00",
+    "pokemoncenter:restock": "2026-07-21T15:04:47.053762+00:00",
+    "target:news": "2026-07-21T15:04:47.053762+00:00",
+    "unknown:news": "2026-07-21T15:04:47.053762+00:00"
   },
   "cooldowns": {
-    "queueit": "2026-07-21T13:26:17.958237+00:00"
+    "queueit": "2026-07-21T15:34:47.796986+00:00"
   },
-  "pending_reminders": [],
+  "pending_reminders": [
+    {
+      "attempt": 1,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-07-21T15:19:47.053762+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-07-21T13:09:07+00:00",
+        "kind": "restock",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "Will Pokemon Center be doing a drop for the 30th UPC's?",
+        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1v2hzh5/will_pokemon_center_be_doing_a_drop_for_the_30th/"
+      },
+      "subscriber_id": "me"
+    },
+    {
+      "attempt": 2,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-07-21T15:34:47.053762+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-07-21T13:09:07+00:00",
+        "kind": "restock",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "Will Pokemon Center be doing a drop for the 30th UPC's?",
+        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1v2hzh5/will_pokemon_center_be_doing_a_drop_for_the_30th/"
+      },
+      "subscriber_id": "me"
+    }
+  ],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
@@ -33,7 +77,6 @@
     "37d15c4d34c4f7a1": "2026-07-20T23:34:02.757712+00:00",
     "3ba4e2c6075ff2ea": "2026-07-20T20:07:53.746722+00:00",
     "3bc916fcbff355b5": "2026-07-20T23:34:02.757712+00:00",
-    "3c725e0f580f9627": "2026-07-20T14:56:12.464898+00:00",
     "3d5a5c3ce2e309c1": "2026-07-20T20:07:53.746722+00:00",
     "3e22c65681342fb8": "2026-07-21T12:56:17.148213+00:00",
     "3ea480c399ca2d9e": "2026-07-20T16:23:45.670142+00:00",
@@ -49,9 +92,9 @@
     "5785baaedac05aea": "2026-07-21T12:56:17.148213+00:00",
     "5f84a9adf695778b": "2026-07-20T20:07:53.746722+00:00",
     "635cf084a84a7ffa": "2026-07-20T20:07:53.746722+00:00",
+    "63cdcd937e276732": "2026-07-21T15:04:47.053762+00:00",
     "654611ba6df0c84e": "2026-07-20T23:34:02.757712+00:00",
     "6b3dc6a268f57313": "2026-07-20T18:27:20.786099+00:00",
-    "6dd3779e172baed2": "2026-07-20T14:56:12.464898+00:00",
     "723f44a5c1fa211b": "2026-07-20T21:22:14.798599+00:00",
     "740c546a05185e5a": "2026-07-21T12:56:17.148213+00:00",
     "7aa14b8a7a9faa6a": "2026-07-20T20:07:53.746722+00:00",
@@ -76,11 +119,13 @@
     "bf9932af76eaef68": "2026-07-20T20:07:53.746722+00:00",
     "c6d597bfa83149b4": "2026-07-20T18:27:20.786099+00:00",
     "c7fc31eea27cf5b5": "2026-07-20T20:07:53.746722+00:00",
+    "c861a98315dd99f6": "2026-07-21T15:04:47.053762+00:00",
     "d0734f753510d159": "2026-07-21T12:56:17.148213+00:00",
     "d1a5aa91d8bedb76": "2026-07-21T12:56:17.148213+00:00",
     "d35fd29eff9ef0f5": "2026-07-21T01:03:20.486439+00:00",
     "d79c10ef0c4595d3": "2026-07-20T22:29:13.641419+00:00",
     "da804672f83001ef": "2026-07-20T20:07:53.746722+00:00",
+    "dbf13f12f03dcbe6": "2026-07-21T15:04:47.053762+00:00",
     "df3ae51106174941": "2026-07-20T23:34:02.757712+00:00",
     "e07c3a128fa235a4": "2026-07-21T12:56:17.148213+00:00",
     "e3cf54fabd44b148": "2026-07-20T18:27:20.786099+00:00",
@@ -91,22 +136,23 @@
     "ec01719fdbc0cfa7": "2026-07-20T20:07:53.746722+00:00",
     "ec9523d143f2a9c8": "2026-07-20T23:34:02.757712+00:00",
     "f1e459a60131456c": "2026-07-21T12:56:17.148213+00:00",
+    "f428c0f674eee695": "2026-07-21T15:04:47.053762+00:00",
     "f601c87f1a2b3ebb": "2026-07-20T20:07:53.746722+00:00",
     "fb9206c18d4d5c10": "2026-07-20T20:07:53.746722+00:00",
     "ff36d02ed75144f5": "2026-07-21T12:56:17.148213+00:00"
   },
   "signal_log": [
     {
-      "at": "2026-07-21T12:56:17.148213+00:00",
+      "at": "2026-07-21T15:04:47.053762+00:00",
       "kind": "restock",
-      "retailer": "unknown",
+      "retailer": "pokemoncenter",
       "source_id": "reddit"
     }
   ],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1v2h0xp"
+      "last_id_combined": "t3_1v2kuv8"
     }
   }
 }
