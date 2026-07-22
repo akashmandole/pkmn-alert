@@ -1,0 +1,33 @@
+# Cloudflare Worker config for the pkmn-alert cron heartbeat.
+#
+# ## What deploys
+#
+# Whatever is in ``src/worker.ts`` at ``wrangler deploy`` time. The
+# worker has zero build step — CF's runtime compiles TypeScript for us
+# in ``compatibility_date >= 2022-11-30``.
+#
+# ## Cron schedule
+#
+# ``*/5 * * * *`` fires at :00, :05, :10, :15, ... of every hour, UTC.
+# Free CF accounts allow up to 3 cron triggers per worker; we use 1.
+# Bumping to ``*/3 * * * *`` is safe (still well under the 100k/day
+# free tier) if drift on the GitHub side gets even worse.
+#
+# ## Secrets
+#
+# The GH_TOKEN secret is NOT declared here — it's seeded out-of-band via:
+#   wrangler secret put GH_TOKEN
+# so it never lands in git. Wrangler stores it encrypted in CF's
+# workers-secrets store and injects it into ``env.GH_TOKEN`` at runtime.
+
+name = "pkmn-alert-heartbeat"
+main = "src/worker.ts"
+compatibility_date = "2026-07-01"
+
+# Enables CF's built-in logs surface (viewable in the dashboard).
+# ``wrangler tail`` streams the same logs to your terminal in real time.
+[observability]
+enabled = true
+
+[triggers]
+crons = ["*/5 * * * *"]

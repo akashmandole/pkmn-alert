@@ -1,0 +1,15 @@
+# Node
+node_modules/
+
+# Wrangler local cache and dev state
+.wrangler/
+
+# Local dev secrets — Wrangler picks these up automatically when
+# running `wrangler dev`. Nothing here is used in production; production
+# secrets live in Cloudflare's encrypted secret store.
+.dev.vars
+
+# Build output (should never exist — worker has no build step — but
+# ignored defensively so a mis-run doesn't pollute git).
+dist/
+build/
