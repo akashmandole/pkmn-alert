@@ -1,54 +1,12 @@
 {
   "alerted_drops": {
-    "amazon:news": "2026-07-22T16:50:26.392415+00:00",
+    "amazon:news": "2026-07-22T19:17:10.700338+00:00",
     "pokemoncenter:queue": "2026-07-22T17:58:51.335542+00:00",
-    "unknown:news": "2026-07-22T17:58:51.335542+00:00"
+    "unknown:news": "2026-07-22T19:17:10.700338+00:00",
+    "walmart:news": "2026-07-22T19:17:10.700338+00:00"
   },
   "cooldowns": {},
-  "pending_reminders": [
-    {
-      "attempt": 1,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-07-22T18:13:51.335542+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-07-22T17:05:13+00:00",
-        "kind": "queue",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "Pokemon Center Queue!",
-        "url": "https://www.reddit.com/r/PKMNTCGDeals/comments/1v3m7us/pokemon_center_queue/"
-      },
-      "subscriber_id": "me"
-    },
-    {
-      "attempt": 2,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-07-22T18:28:51.335542+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-07-22T17:05:13+00:00",
-        "kind": "queue",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "Pokemon Center Queue!",
-        "url": "https://www.reddit.com/r/PKMNTCGDeals/comments/1v3m7us/pokemon_center_queue/"
-      },
-      "subscriber_id": "me"
-    }
-  ],
+  "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
@@ -62,6 +20,7 @@
     "17a1bccda3ee189a": "2026-07-22T09:42:42.950718+00:00",
     "194b3ef1f1511abc": "2026-07-22T01:08:39.226177+00:00",
     "1cc36d21a71221f4": "2026-07-22T07:17:05.861526+00:00",
+    "1f6064601e694445": "2026-07-22T19:17:10.700338+00:00",
     "1fb81dfd3205cee6": "2026-07-22T07:17:05.861526+00:00",
     "207c04ee93824e5f": "2026-07-21T22:41:09.739714+00:00",
     "22b8c1b4b5fa025f": "2026-07-22T09:42:42.950718+00:00",
@@ -88,6 +47,7 @@
     "4a2aae333aad4af2": "2026-07-21T23:41:33.379919+00:00",
     "4a5b5bdcbc9b788a": "2026-07-21T22:41:09.739714+00:00",
     "4ce4363e04b34b76": "2026-07-21T20:49:15.775131+00:00",
+    "51a29499cb002a81": "2026-07-22T19:17:10.700338+00:00",
     "53e41af302814409": "2026-07-22T01:08:39.226177+00:00",
     "55330df72a75068d": "2026-07-22T07:17:05.861526+00:00",
     "55c3495da2a5db6e": "2026-07-21T21:48:36.775522+00:00",
@@ -123,10 +83,12 @@
     "a9b24f88a380a90a": "2026-07-21T23:41:33.379919+00:00",
     "ab6f2be49d8e5f3e": "2026-07-22T09:42:42.950718+00:00",
     "ae256c0a2cd8cf6a": "2026-07-22T09:42:42.950718+00:00",
+    "b30f0a01dfd5a9d9": "2026-07-22T19:17:10.700338+00:00",
     "b9a5800bee4cf30e": "2026-07-22T17:58:51.335542+00:00",
     "bdcf7bb935730997": "2026-07-22T07:17:05.861526+00:00",
     "be21dd4018da30dd": "2026-07-21T19:42:32.632986+00:00",
     "bf4debc9fbe7bbeb": "2026-07-22T01:08:39.226177+00:00",
+    "c1ec6d44a590a842": "2026-07-22T19:17:10.700338+00:00",
     "c757e35b157ccc75": "2026-07-22T09:42:42.950718+00:00",
     "ca8ebec08084b0fc": "2026-07-21T19:42:32.632986+00:00",
     "cb3ec5de9290e272": "2026-07-22T07:17:05.861526+00:00",
@@ -154,30 +116,11 @@
     "fddc8d890cbe1200": "2026-07-21T22:41:09.739714+00:00",
     "fe33de4654db8941": "2026-07-21T23:41:33.379919+00:00"
   },
-  "signal_log": [
-    {
-      "at": "2026-07-22T17:58:51.335542+00:00",
-      "kind": "queue",
-      "retailer": "pokemoncenter",
-      "source_id": "reddit"
-    },
-    {
-      "at": "2026-07-22T17:58:51.335542+00:00",
-      "kind": "queue",
-      "retailer": "pokemoncenter",
-      "source_id": "reddit"
-    },
-    {
-      "at": "2026-07-22T17:58:51.335542+00:00",
-      "kind": "queue",
-      "retailer": "pokemoncenter",
-      "source_id": "reddit"
-    }
-  ],
+  "signal_log": [],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1v3nmzk"
+      "last_id_combined": "t3_1v3punq"
     }
   }
 }
