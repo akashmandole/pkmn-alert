@@ -20,6 +20,16 @@ but never dispatched on their own. This matches the user's explicit
 requirement that queueit "only be used for confirmation" of Reddit
 signals, not as a standalone alert source.
 
+## Confirmation-required subscribers
+
+A subscriber with ``require_confirmation=True`` opts out of MED
+entirely — the dispatcher drops any event whose label isn't HIGH
+before running filters or building notifiers. The same gate is
+re-applied to reminders at fire time. Use this when false positives
+are more painful than the occasional missed drop. Skipped events do
+NOT mark the drop as alerted, so a subsequent tick that DOES land a
+queueit confirmation will still push a fresh HIGH.
+
 ## Reminders
 
 Each dispatched event optionally schedules follow-up pushes based on
@@ -87,6 +97,10 @@ class DispatchResult:
     #: Events suppressed because we already alerted about this drop in a
     #: recent tick and the suppression window hasn't elapsed yet.
     suppressed_recent_drop: int = 0
+    #: MED-labeled events dropped because the subscriber has
+    #: ``require_confirmation=True`` and no queueit confirmation is on
+    #: file for this (retailer, kind). Counted once per (event × subscriber).
+    skipped_awaiting_confirmation: int = 0
     failed: int = 0
 
 
@@ -153,6 +167,23 @@ def process_due_reminders(
         # Re-evaluate the confidence label at fire time — the queueit
         # source may have confirmed in the interim.
         label = _label_for(event, state, now)
+
+        # False-positive lockdown for reminders. If the subscriber
+        # requires confirmation and the reminder is still MED, drop it
+        # (don't re-queue). The reasoning: the initial push was gated
+        # by the same rule, so if the reminder made it into the queue
+        # at all the initial WAS a HIGH; a MED reminder now means the
+        # confirmation aged out of CONFIRMATION_LOOKBACK. Sending a
+        # MED-labeled follow-up after the confirmation expired is
+        # exactly the kind of noise the user asked us to suppress.
+        if sub.require_confirmation and label != "HIGH":
+            log.info(
+                "dropping reminder attempt=%d subscriber=%s: label=%s at fire time "
+                "but subscriber requires HIGH-only",
+                attempt, sub.id, label,
+            )
+            continue
+
         display = _prefix_title(event, label=label, reminder_attempt=attempt)
 
         notifier = _build_notifier_from_snapshot(r.get("channel", {}))
@@ -286,6 +317,24 @@ def dispatch(
         any_real_delivery = False
 
         for sub, channels in prepared:
+            # False-positive lockdown. Subscribers with
+            # ``require_confirmation`` only want events physically
+            # verified on pokemoncenter.com. A MED label means either
+            # (a) queueit hasn't confirmed for this (retailer, kind) or
+            # (b) it did confirm but the confirmation aged out of
+            # CONFIRMATION_LOOKBACK. Either way: silently drop.
+            #
+            # Order matters: check BEFORE filters/keywords so a MED
+            # event that would have passed filters still doesn't
+            # increment skipped_filtered.
+            if sub.require_confirmation and label != "HIGH":
+                log.debug(
+                    "subscriber=%s awaiting confirmation; dropping label=%s event %s",
+                    sub.id, label, event.dedupe_key(),
+                )
+                result.skipped_awaiting_confirmation += 1
+                continue
+
             allowed, reason = matches(event, sub.filters, now, tz_name)
             if not allowed:
                 log.debug(

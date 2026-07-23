@@ -73,6 +73,17 @@ subscribers:
     # [HIGH] reminder if the queueit source confirms in the interim.
     reminders_minutes: [15, 30]
 
+    # False-positive lockdown. When true, only fire when queueit has
+    # physically verified a queue on pokemoncenter.com (label == HIGH).
+    # Reddit-only alerts (MED) are dropped silently — but the drop is
+    # NOT marked as suppressed, so the next tick that DOES land a
+    # queueit confirmation still pushes a fresh HIGH.
+    #
+    # Enabled here because consumers were complaining about fake alerts.
+    # Flip to false to re-open MED delivery if coverage matters more
+    # than precision.
+    require_confirmation: true
+
   ############################################################
   # Example: a second person, SMS only, only wants queue alerts (never deals)
   ############################################################

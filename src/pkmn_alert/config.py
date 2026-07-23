@@ -83,6 +83,27 @@ class Subscriber:
     #: upgraded to HIGH by the time its reminder goes out.
     reminders_minutes: list[int] = field(default_factory=list)
 
+    #: False-positive lockdown. When True the dispatcher only sends events
+    #: labeled ``[HIGH]`` — i.e. events physically confirmed on
+    #: pokemoncenter.com by the ``queueit`` source, or MED events that
+    #: were upgraded because a recent queueit confirmation exists for the
+    #: same (retailer, kind). MED events (Reddit-only, unverified) are
+    #: silently dropped for this subscriber; the drop is NOT marked as
+    #: alerted in state, so a later tick that DOES get a queueit
+    #: confirmation will still push a fresh HIGH.
+    #:
+    #: Trade-off: fewer false alarms, at the cost of missing real drops
+    #: where queueit failed to see the queue (Akamai served a normal
+    #: page, TLS handshake failed, cooldown active, etc.).
+    #:
+    #: Reminders honor this flag the same way — if a queued reminder is
+    #: still MED at fire time, it's dropped.
+    #:
+    #: Defaults to False for backward compatibility with existing
+    #: subscribers.yaml files. Flip to True for consumers who prefer
+    #: quiet-and-precise over noisy-and-broad.
+    require_confirmation: bool = False
+
 
 @dataclass
 class AppConfig:
@@ -145,6 +166,7 @@ def load(
                 channels=channels,
                 filters=filters,
                 reminders_minutes=reminders_minutes,
+                require_confirmation=bool(entry.get("require_confirmation", False)),
             )
         )
 

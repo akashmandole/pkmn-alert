@@ -216,12 +216,14 @@ def main(argv: list[str] | None = None) -> int:
     )
     log.info(
         "dispatch complete: delivered=%d reminders_queued=%d confirmations=%d "
-        "filtered=%d unconfigured=%d coalesced=%d suppressed=%d failed=%d dry_run=%s",
+        "filtered=%d unconfigured=%d awaiting_confirmation=%d coalesced=%d "
+        "suppressed=%d failed=%d dry_run=%s",
         result.delivered,
         result.reminders_queued,
         result.confirmations_recorded,
         result.skipped_filtered,
         result.skipped_unconfigured,
+        result.skipped_awaiting_confirmation,
         result.coalesced,
         result.suppressed_recent_drop,
         result.failed,

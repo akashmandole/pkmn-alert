@@ -92,6 +92,7 @@ def _sub(
     reminders_minutes: list[int] | None = None,
     filters: SubscriberFilters | None = None,
     channel_name: str = "n1",
+    require_confirmation: bool = False,
 ) -> Subscriber:
     return Subscriber(
         id=sub_id,
@@ -99,6 +100,7 @@ def _sub(
         channels=[ChannelConfig(type="recording", options={"name": channel_name})],
         filters=filters or SubscriberFilters(),
         reminders_minutes=list(reminders_minutes or []),
+        require_confirmation=require_confirmation,
     )
 
 
@@ -372,3 +374,218 @@ class TestStateRoundTrip:
 
         assert "old_retailer_queue" not in state.recent_confirmations
         assert "pokemoncenter_queue" in state.recent_confirmations
+
+
+# ---------------------------------------------------------------------------
+# require_confirmation gate (Option B — false-positive lockdown)
+# ---------------------------------------------------------------------------
+
+
+class TestRequireConfirmationGate:
+    """When a subscriber sets ``require_confirmation=True`` they only want
+    events physically verified on pokemoncenter.com. MED events (Reddit-only)
+    must be dropped silently and MUST NOT mark the drop as suppressed —
+    otherwise a subsequent tick that DOES land a queueit confirmation
+    would be swallowed by cross-tick dedupe."""
+
+    # ---- initial dispatch ----
+
+    def test_med_event_skipped_for_require_confirmation_subscriber(self, route_recording):
+        state = State()
+        subs = [_sub("me", require_confirmation=True)]
+
+        result = dispatch([_event(kind="queue")], subs, now=T0, tz_name="UTC", state=state)
+
+        assert result.delivered == 0
+        assert result.skipped_awaiting_confirmation == 1
+        assert result.skipped_filtered == 0, (
+            "the gate runs BEFORE filters, so filter counter must stay clean"
+        )
+        assert RecordingNotifier.all_instances[0].sent == []
+
+    def test_high_event_delivered_for_require_confirmation_subscriber(self, route_recording):
+        state = State()
+        # Prior queueit confirmation on file → Reddit event this tick is HIGH.
+        state.record_confirmation("pokemoncenter", "queue", T0 - timedelta(minutes=10))
+        subs = [_sub("me", require_confirmation=True)]
+
+        result = dispatch(
+            [_event(kind="queue", title="Queue is LIVE on Pokemon Center")],
+            subs, now=T0, tz_name="UTC", state=state,
+        )
+
+        assert result.delivered == 1
+        assert result.skipped_awaiting_confirmation == 0
+        assert RecordingNotifier.all_instances[0].sent == [
+            ("me", "[HIGH] Queue is LIVE on Pokemon Center")
+        ]
+
+    def test_same_batch_queueit_upgrades_reddit_for_require_confirmation(self, route_recording):
+        """The intended happy path: queueit and Reddit fire in the same
+        tick, queueit is absorbed as confirmation first, then Reddit
+        dispatches as HIGH and passes the gate."""
+        state = State()
+        subs = [_sub("me", require_confirmation=True)]
+
+        events = [
+            _event(source="queueit", kind="queue", title="pokemoncenter queue live"),
+            _event(source="reddit", kind="queue", title="Queue is LIVE on Pokemon Center"),
+        ]
+
+        result = dispatch(events, subs, now=T0, tz_name="UTC", state=state)
+
+        assert result.delivered == 1
+        assert result.confirmations_recorded == 1
+        assert result.skipped_awaiting_confirmation == 0
+
+    def test_med_skip_does_not_mark_drop_alerted(self, route_recording):
+        """Critical invariant: if we drop a MED event because the sub is
+        awaiting confirmation, we MUST NOT record it in ``alerted_drops``.
+        Otherwise the next tick's HIGH event (queueit finally saw it) would
+        be cross-tick-suppressed and the user would still hear nothing."""
+        state = State()
+        subs = [_sub("me", require_confirmation=True)]
+
+        # Tick 1: Reddit MED — silently dropped.
+        dispatch(
+            [_event(kind="queue", title="PC Queue is up")],
+            subs, now=T0, tz_name="UTC", state=state,
+        )
+        assert state.alerted_drops == {}, "skipped-awaiting-confirmation must not suppress"
+
+        # Tick 2 (2 min later): queueit records confirmation, then a
+        # fresh Reddit post about the same drop dispatches as HIGH.
+        t2 = T0 + timedelta(minutes=2)
+        result = dispatch(
+            [
+                _event(source="queueit", kind="queue", title="pokemoncenter queue live", detected_at=t2),
+                _event(kind="queue", title="PC Queue confirmed live", detected_at=t2),
+            ],
+            subs, now=t2, tz_name="UTC", state=state,
+        )
+        assert result.delivered == 1
+        assert "pokemoncenter:queue" in state.alerted_drops
+
+    def test_mixed_subscribers_only_lock_down_the_flagged_one(self, route_recording):
+        """A `debug-stdout` style subscriber without the flag still sees
+        MED events; the flagged subscriber does not."""
+        state = State()
+        subs = [
+            _sub("me",    require_confirmation=True,  channel_name="me-n"),
+            _sub("debug", require_confirmation=False, channel_name="debug-n"),
+        ]
+
+        result = dispatch([_event(kind="queue", title="PC Queue is up")], subs, now=T0, tz_name="UTC", state=state)
+
+        assert result.delivered == 1
+        assert result.skipped_awaiting_confirmation == 1
+        # Instance ordering follows subscriber ordering.
+        me_notifier, debug_notifier = RecordingNotifier.all_instances
+        assert me_notifier.sent == []
+        assert debug_notifier.sent == [("debug", "[MED] PC Queue is up")]
+
+    # ---- reminders ----
+
+    def test_reminder_dropped_if_still_med_at_fire_time(self, route_recording):
+        """A reminder queued when there WAS a confirmation must be dropped
+        (not fired MED) if the confirmation has since aged out and the
+        subscriber requires HIGH-only."""
+        state = State()
+        # Confirmation exists → the primary send goes through as HIGH
+        # and schedules a reminder.
+        state.record_confirmation("pokemoncenter", "queue", T0)
+        subs = [_sub("me", require_confirmation=True, reminders_minutes=[15])]
+
+        dispatch(
+            [_event(kind="queue", title="Queue live on PC")],
+            subs, now=T0, tz_name="UTC", state=state,
+        )
+        assert len(state.pending_reminders) == 1
+
+        # Fast-forward past CONFIRMATION_LOOKBACK so the reminder
+        # re-evaluates as MED. With require_confirmation=True it must
+        # be dropped, not fired.
+        fire_at = T0 + CONFIRMATION_LOOKBACK + timedelta(minutes=1)
+        fired = process_due_reminders(state, subs, now=fire_at, tz_name="UTC")
+
+        assert fired == 0
+        assert state.pending_reminders == []
+        # Only the original send exists on the wire.
+        assert RecordingNotifier.all_instances[0].sent == [
+            ("me", "[HIGH] Queue live on PC")
+        ]
+
+    def test_reminder_fires_if_still_high_at_fire_time(self, route_recording):
+        """Reminder should still fire if the confirmation is still fresh."""
+        state = State()
+        state.record_confirmation("pokemoncenter", "queue", T0)
+        subs = [_sub("me", require_confirmation=True, reminders_minutes=[15])]
+
+        dispatch(
+            [_event(kind="queue", title="Queue live on PC")],
+            subs, now=T0, tz_name="UTC", state=state,
+        )
+
+        # Fire the reminder 15 min later. Confirmation is 15 min old,
+        # which is inside CONFIRMATION_LOOKBACK → still HIGH.
+        fired = process_due_reminders(
+            state, subs, now=T0 + timedelta(minutes=15), tz_name="UTC",
+        )
+        assert fired == 1
+        _, reminder_notifier = RecordingNotifier.all_instances
+        assert reminder_notifier.sent == [
+            ("me", "[HIGH][REMIND #1] Queue live on PC")
+        ]
+
+
+# ---------------------------------------------------------------------------
+# Config parsing
+# ---------------------------------------------------------------------------
+
+
+class TestRequireConfirmationConfig:
+    """The YAML field must round-trip into the Subscriber dataclass and
+    default False when omitted (backward compat for existing files)."""
+
+    def test_default_is_false_when_field_omitted(self, tmp_path):
+        from pkmn_alert import config as cfgmod
+
+        subs_yaml = tmp_path / "subs.yaml"
+        subs_yaml.write_text(
+            "subscribers:\n"
+            "  - id: legacy\n"
+            "    enabled: true\n"
+            "    channels: []\n"
+            "    filters: {}\n",
+        )
+        srcs_yaml = tmp_path / "srcs.yaml"
+        srcs_yaml.write_text("sources: []\n")
+
+        app = cfgmod.load(
+            sources_path=srcs_yaml,
+            subscribers_path=subs_yaml,
+            state_path=tmp_path / "state.json",
+        )
+        assert app.subscribers[0].require_confirmation is False
+
+    def test_true_is_parsed_from_yaml(self, tmp_path):
+        from pkmn_alert import config as cfgmod
+
+        subs_yaml = tmp_path / "subs.yaml"
+        subs_yaml.write_text(
+            "subscribers:\n"
+            "  - id: strict\n"
+            "    enabled: true\n"
+            "    channels: []\n"
+            "    filters: {}\n"
+            "    require_confirmation: true\n",
+        )
+        srcs_yaml = tmp_path / "srcs.yaml"
+        srcs_yaml.write_text("sources: []\n")
+
+        app = cfgmod.load(
+            sources_path=srcs_yaml,
+            subscribers_path=subs_yaml,
+            state_path=tmp_path / "state.json",
+        )
+        assert app.subscribers[0].require_confirmation is True
