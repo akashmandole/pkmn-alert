@@ -4,32 +4,8 @@
     "pokemoncenter:restock": "2026-07-23T13:57:03.692237+00:00",
     "walmart:news": "2026-07-23T14:02:12.300976+00:00"
   },
-  "cooldowns": {
-    "queueit": "2026-07-23T14:27:04.540116+00:00"
-  },
-  "pending_reminders": [
-    {
-      "attempt": 2,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-07-23T14:27:03.692237+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-07-23T13:55:11+00:00",
-        "kind": "restock",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "Will there be a Pokemon Center drop today?",
-        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1v4empb/will_there_be_a_pokemon_center_drop_today/"
-      },
-      "subscriber_id": "me"
-    }
-  ],
+  "cooldowns": {},
+  "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
