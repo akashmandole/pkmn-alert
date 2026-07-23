@@ -6,32 +6,8 @@
     "walmart:news": "2026-07-23T01:01:49.321660+00:00",
     "walmart:restock": "2026-07-23T01:01:49.321660+00:00"
   },
-  "cooldowns": {
-    "queueit": "2026-07-23T01:26:52.714788+00:00"
-  },
-  "pending_reminders": [
-    {
-      "attempt": 2,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-07-23T01:26:52.042530+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-07-23T00:52:29+00:00",
-        "kind": "restock",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "Pokemon center drop on airplane wifi?",
-        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1v3yr9u/pokemon_center_drop_on_airplane_wifi/"
-      },
-      "subscriber_id": "me"
-    }
-  ],
+  "cooldowns": {},
+  "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
