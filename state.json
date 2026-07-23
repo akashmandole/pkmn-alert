@@ -1,7 +1,6 @@
 {
   "alerted_drops": {
-    "unknown:news": "2026-07-23T07:42:01.919977+00:00",
-    "unknown:restock": "2026-07-23T06:56:33.716403+00:00"
+    "unknown:news": "2026-07-23T07:42:01.919977+00:00"
   },
   "cooldowns": {},
   "pending_reminders": [],
