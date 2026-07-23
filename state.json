@@ -1,11 +1,57 @@
 {
   "alerted_drops": {
+    "pokemoncenter:restock": "2026-07-23T00:56:52.042530+00:00",
     "unknown:news": "2026-07-22T23:36:16.502066+00:00",
     "unknown:restock": "2026-07-23T00:02:10.927793+00:00",
     "walmart:news": "2026-07-22T23:06:56.831542+00:00"
   },
-  "cooldowns": {},
-  "pending_reminders": [],
+  "cooldowns": {
+    "queueit": "2026-07-23T01:26:52.714788+00:00"
+  },
+  "pending_reminders": [
+    {
+      "attempt": 1,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-07-23T01:11:52.042530+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-07-23T00:52:29+00:00",
+        "kind": "restock",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "Pokemon center drop on airplane wifi?",
+        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1v3yr9u/pokemon_center_drop_on_airplane_wifi/"
+      },
+      "subscriber_id": "me"
+    },
+    {
+      "attempt": 2,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-07-23T01:26:52.042530+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-07-23T00:52:29+00:00",
+        "kind": "restock",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "Pokemon center drop on airplane wifi?",
+        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1v3yr9u/pokemon_center_drop_on_airplane_wifi/"
+      },
+      "subscriber_id": "me"
+    }
+  ],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
@@ -56,6 +102,7 @@
     "68e23988801ea1a9": "2026-07-22T17:58:51.335542+00:00",
     "6fab8c6403416262": "2026-07-22T23:06:56.831542+00:00",
     "73594fdd60710904": "2026-07-22T07:17:05.861526+00:00",
+    "75384964c3b28ecf": "2026-07-23T00:56:52.042530+00:00",
     "76b086ef8751ad5d": "2026-07-22T23:47:08.403707+00:00",
     "77ead5c49823342a": "2026-07-22T15:14:25.477602+00:00",
     "7bd3a555593d326e": "2026-07-23T00:06:48.761069+00:00",
@@ -124,12 +171,18 @@
       "kind": "restock",
       "retailer": "unknown",
       "source_id": "reddit"
+    },
+    {
+      "at": "2026-07-23T00:56:52.042530+00:00",
+      "kind": "restock",
+      "retailer": "pokemoncenter",
+      "source_id": "reddit"
     }
   ],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1v3y5n7"
+      "last_id_combined": "t3_1v3yr9u"
     }
   }
 }
