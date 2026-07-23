@@ -174,12 +174,6 @@
   },
   "signal_log": [
     {
-      "at": "2026-07-23T00:02:10.927793+00:00",
-      "kind": "restock",
-      "retailer": "unknown",
-      "source_id": "reddit"
-    },
-    {
       "at": "2026-07-23T00:56:52.042530+00:00",
       "kind": "restock",
       "retailer": "pokemoncenter",
