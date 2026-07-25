@@ -3,7 +3,9 @@
     "amazon:news": "2026-07-25T14:31:41.828436+00:00",
     "unknown:news": "2026-07-25T13:41:32.747984+00:00"
   },
-  "cooldowns": {},
+  "cooldowns": {
+    "reddit": "2026-07-25T15:37:02.391881+00:00"
+  },
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
