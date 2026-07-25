@@ -1,7 +1,6 @@
 {
   "alerted_drops": {
     "pokemoncenter:news": "2026-07-25T03:32:08.793050+00:00",
-    "target:news": "2026-07-25T02:46:23.775023+00:00",
     "unknown:restock": "2026-07-25T03:41:43.872431+00:00"
   },
   "cooldowns": {
@@ -115,14 +114,7 @@
     "fdda770c50779410": "2026-07-24T07:56:25.571430+00:00",
     "ff6146c64809b6ef": "2026-07-24T15:12:14.417028+00:00"
   },
-  "signal_log": [
-    {
-      "at": "2026-07-25T03:41:43.872431+00:00",
-      "kind": "restock",
-      "retailer": "unknown",
-      "source_id": "reddit"
-    }
-  ],
+  "signal_log": [],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
