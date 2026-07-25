@@ -1,8 +1,8 @@
 {
-  "alerted_drops": {
-    "unknown:restock": "2026-07-25T03:41:43.872431+00:00"
+  "alerted_drops": {},
+  "cooldowns": {
+    "reddit": "2026-07-25T05:57:07.787277+00:00"
   },
-  "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
