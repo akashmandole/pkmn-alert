@@ -1,7 +1,6 @@
 {
   "alerted_drops": {
-    "unknown:news": "2026-07-26T12:50:23.316313+00:00",
-    "walmart:news": "2026-07-26T12:11:06.865688+00:00"
+    "unknown:news": "2026-07-26T12:50:23.316313+00:00"
   },
   "cooldowns": {},
   "pending_reminders": [],
