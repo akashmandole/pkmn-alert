@@ -2,9 +2,7 @@
   "alerted_drops": {
     "unknown:restock": "2026-07-26T02:21:22.118686+00:00"
   },
-  "cooldowns": {
-    "queueit": "2026-07-26T02:51:24.402349+00:00"
-  },
+  "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
