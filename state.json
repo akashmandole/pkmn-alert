@@ -3,9 +3,7 @@
     "amazon:news": "2026-07-27T14:50:53.284663+00:00",
     "walmart:news": "2026-07-27T15:16:01.234080+00:00"
   },
-  "cooldowns": {
-    "reddit": "2026-07-27T15:55:48.641529+00:00"
-  },
+  "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
