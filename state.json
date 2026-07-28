@@ -3,9 +3,7 @@
     "amazon:news": "2026-07-28T01:55:21.072718+00:00",
     "unknown:news": "2026-07-28T03:00:34.696573+00:00"
   },
-  "cooldowns": {
-    "reddit": "2026-07-28T03:51:05.695329+00:00"
-  },
+  "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
@@ -89,7 +87,7 @@
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1v8lrlc"
+      "last_id_combined": "t3_1v8mqxb"
     }
   }
 }
