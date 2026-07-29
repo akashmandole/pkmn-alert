@@ -4,7 +4,9 @@
     "unknown:news": "2026-07-29T13:40:23.837516+00:00",
     "walmart:news": "2026-07-29T13:40:23.837516+00:00"
   },
-  "cooldowns": {},
+  "cooldowns": {
+    "reddit": "2026-07-29T14:11:14.445208+00:00"
+  },
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
