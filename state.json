@@ -1,6 +1,5 @@
 {
   "alerted_drops": {
-    "amazon:news": "2026-07-30T12:47:06.639178+00:00",
     "unknown:news": "2026-07-30T13:42:06.475311+00:00",
     "walmart:news": "2026-07-30T14:01:12.594894+00:00"
   },
@@ -118,7 +117,7 @@
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1vavipo"
+      "last_id_combined": "t3_1vavt8q"
     }
   }
 }
