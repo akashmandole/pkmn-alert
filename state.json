@@ -2,7 +2,9 @@
   "alerted_drops": {
     "unknown:news": "2026-08-01T10:41:46.199796+00:00"
   },
-  "cooldowns": {},
+  "cooldowns": {
+    "reddit": "2026-08-01T11:12:04.764069+00:00"
+  },
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
