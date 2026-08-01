@@ -4,7 +4,9 @@
     "unknown:news": "2026-08-01T07:06:32.306584+00:00",
     "unknown:restock": "2026-08-01T05:51:44.210061+00:00"
   },
-  "cooldowns": {},
+  "cooldowns": {
+    "reddit": "2026-08-01T07:36:39.209653+00:00"
+  },
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
