@@ -4,7 +4,9 @@
     "target:news": "2026-08-01T17:10:32.878269+00:00",
     "unknown:news": "2026-08-01T17:36:30.009626+00:00"
   },
-  "cooldowns": {},
+  "cooldowns": {
+    "reddit": "2026-08-01T18:16:28.534302+00:00"
+  },
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
