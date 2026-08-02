@@ -1,7 +1,5 @@
 {
-  "alerted_drops": {
-    "unknown:news": "2026-08-01T23:40:45.669342+00:00"
-  },
+  "alerted_drops": {},
   "cooldowns": {
     "reddit": "2026-08-02T01:41:23.663476+00:00"
   },
