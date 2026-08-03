@@ -1,7 +1,6 @@
 {
   "alerted_drops": {
-    "unknown:news": "2026-08-03T20:36:07.072202+00:00",
-    "unknown:restock": "2026-08-03T19:46:00.044565+00:00"
+    "unknown:news": "2026-08-03T20:36:07.072202+00:00"
   },
   "cooldowns": {},
   "pending_reminders": [],
@@ -90,7 +89,7 @@
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1veqog0"
+      "last_id_combined": "t3_1ver160"
     }
   }
 }
