@@ -4,9 +4,7 @@
     "target:news": "2026-08-05T22:21:14.466785+00:00",
     "walmart:preorder": "2026-08-05T22:42:54.006191+00:00"
   },
-  "cooldowns": {
-    "reddit": "2026-08-05T23:52:27.181393+00:00"
-  },
+  "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
