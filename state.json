@@ -4,7 +4,9 @@
     "unknown:preorder": "2026-08-06T00:07:04.715603+00:00",
     "walmart:news": "2026-08-06T01:01:54.288817+00:00"
   },
-  "cooldowns": {},
+  "cooldowns": {
+    "reddit": "2026-08-06T01:41:39.689303+00:00"
+  },
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
