@@ -7,7 +7,9 @@
     "unknown:restock": "2026-08-06T23:11:21.914004+00:00",
     "walmart:news": "2026-08-06T23:11:21.914004+00:00"
   },
-  "cooldowns": {},
+  "cooldowns": {
+    "reddit": "2026-08-07T00:16:15.773935+00:00"
+  },
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
