@@ -1,7 +1,6 @@
 {
   "alerted_drops": {
-    "amazon:news": "2026-08-08T14:55:45.247115+00:00",
-    "unknown:news": "2026-08-08T14:31:10.441972+00:00"
+    "amazon:news": "2026-08-08T14:55:45.247115+00:00"
   },
   "cooldowns": {},
   "pending_reminders": [],
