@@ -3,7 +3,9 @@
     "unknown:deal": "2026-08-08T10:16:29.558849+00:00",
     "unknown:news": "2026-08-08T10:16:29.558849+00:00"
   },
-  "cooldowns": {},
+  "cooldowns": {
+    "reddit": "2026-08-08T10:56:34.008635+00:00"
+  },
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
