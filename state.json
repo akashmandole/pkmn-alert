@@ -1,10 +1,8 @@
 {
   "alerted_drops": {
-    "amazon:news": "2026-08-12T15:06:11.638933+00:00",
     "target:news": "2026-08-12T16:06:08.670205+00:00",
     "unknown:news": "2026-08-12T16:51:38.171515+00:00",
-    "unknown:restock": "2026-08-12T16:41:30.682456+00:00",
-    "walmart:news": "2026-08-12T15:06:11.638933+00:00"
+    "unknown:restock": "2026-08-12T16:41:30.682456+00:00"
   },
   "cooldowns": {
     "queueit": "2026-08-12T17:11:31.486498+00:00"
@@ -134,7 +132,7 @@
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1vmjn0t"
+      "last_id_combined": "t3_1vmjzjl"
     }
   }
 }
