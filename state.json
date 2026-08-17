@@ -1,8 +1,7 @@
 {
   "alerted_drops": {
     "amazon:news": "2026-08-17T14:46:13.512974+00:00",
-    "pokemoncenter:queue": "2026-08-17T15:41:45.387387+00:00",
-    "pokemoncenter:restock": "2026-08-17T14:26:33.885897+00:00"
+    "pokemoncenter:queue": "2026-08-17T15:41:45.387387+00:00"
   },
   "cooldowns": {},
   "pending_reminders": [],
