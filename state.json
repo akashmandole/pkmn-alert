@@ -4,9 +4,7 @@
     "pokemoncenter:restock": "2026-08-17T14:26:33.885897+00:00",
     "unknown:news": "2026-08-17T14:21:07.762356+00:00"
   },
-  "cooldowns": {
-    "queueit": "2026-08-17T14:56:35.639740+00:00"
-  },
+  "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
