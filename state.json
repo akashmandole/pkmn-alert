@@ -1,8 +1,11 @@
 {
   "alerted_drops": {
+    "pokemoncenter:restock": "2026-08-17T14:26:33.885897+00:00",
     "unknown:news": "2026-08-17T14:21:07.762356+00:00"
   },
-  "cooldowns": {},
+  "cooldowns": {
+    "queueit": "2026-08-17T14:56:35.639740+00:00"
+  },
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
@@ -59,13 +62,21 @@
     "dcfc33737e76d081": "2026-08-17T08:02:20.348117+00:00",
     "f295398d097249b8": "2026-08-17T06:05:31.735710+00:00",
     "f29ba25951bd2272": "2026-08-16T17:48:50.074894+00:00",
+    "fcb389eeafc5d1cc": "2026-08-17T14:26:33.885897+00:00",
     "fdab1c556bc00d2e": "2026-08-17T07:12:51.179157+00:00"
   },
-  "signal_log": [],
+  "signal_log": [
+    {
+      "at": "2026-08-17T14:26:33.885897+00:00",
+      "kind": "restock",
+      "retailer": "pokemoncenter",
+      "source_id": "reddit"
+    }
+  ],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1vqtn4l"
+      "last_id_combined": "t3_1vqtrm3"
     }
   }
 }
