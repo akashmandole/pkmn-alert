@@ -117,12 +117,6 @@
   },
   "signal_log": [
     {
-      "at": "2026-08-21T23:26:16.844091+00:00",
-      "kind": "restock",
-      "retailer": "unknown",
-      "source_id": "reddit"
-    },
-    {
       "at": "2026-08-22T00:11:41.125561+00:00",
       "kind": "restock",
       "retailer": "unknown",
