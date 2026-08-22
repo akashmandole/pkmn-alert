@@ -2,7 +2,9 @@
   "alerted_drops": {
     "walmart:restock": "2026-08-22T03:36:13.362956+00:00"
   },
-  "cooldowns": {},
+  "cooldowns": {
+    "reddit": "2026-08-22T03:56:49.274732+00:00"
+  },
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
