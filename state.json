@@ -90,14 +90,7 @@
     "fee756066177e655": "2026-08-22T14:26:17.557877+00:00",
     "fee986da1c18644f": "2026-08-21T23:26:16.844091+00:00"
   },
-  "signal_log": [
-    {
-      "at": "2026-08-22T17:41:52.705091+00:00",
-      "kind": "restock",
-      "retailer": "unknown",
-      "source_id": "reddit"
-    }
-  ],
+  "signal_log": [],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
