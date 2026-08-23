@@ -1,7 +1,5 @@
 {
-  "alerted_drops": {
-    "walmart:news": "2026-08-23T13:36:54.902231+00:00"
-  },
+  "alerted_drops": {},
   "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
