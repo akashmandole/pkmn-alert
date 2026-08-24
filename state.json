@@ -1,8 +1,5 @@
 {
-  "alerted_drops": {
-    "pokemoncenter:news": "2026-08-24T05:06:10.901769+00:00",
-    "unknown:news": "2026-08-24T05:06:10.901769+00:00"
-  },
+  "alerted_drops": {},
   "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
