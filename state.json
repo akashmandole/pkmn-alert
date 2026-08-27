@@ -3,7 +3,6 @@
     "pokemoncenter:news": "2026-08-27T07:55:36.322919+00:00",
     "unknown:news": "2026-08-27T07:35:31.823272+00:00",
     "unknown:restock": "2026-08-27T07:50:31.223355+00:00",
-    "walmart:news": "2026-08-27T07:15:59.821415+00:00",
     "walmart:queue": "2026-08-27T08:00:25.401570+00:00"
   },
   "cooldowns": {},
@@ -109,7 +108,7 @@
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1vzocy3"
+      "last_id_combined": "t3_1vzoxaa"
     }
   }
 }
