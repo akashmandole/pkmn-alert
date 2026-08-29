@@ -4,9 +4,7 @@
     "unknown:news": "2026-08-29T07:45:36.728234+00:00",
     "unknown:preorder": "2026-08-29T07:45:36.728234+00:00"
   },
-  "cooldowns": {
-    "queueit": "2026-08-29T08:15:37.545713+00:00"
-  },
+  "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
