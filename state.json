@@ -3,9 +3,7 @@
     "unknown:preorder": "2026-09-01T03:05:25.593280+00:00",
     "unknown:restock": "2026-09-01T03:26:06.930628+00:00"
   },
-  "cooldowns": {
-    "reddit": "2026-09-01T04:51:19.841327+00:00"
-  },
+  "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
