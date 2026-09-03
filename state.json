@@ -1,7 +1,6 @@
 {
   "alerted_drops": {
-    "amazon:news": "2026-09-03T13:06:55.833715+00:00",
-    "target:news": "2026-09-03T11:27:11.923227+00:00"
+    "amazon:news": "2026-09-03T13:06:55.833715+00:00"
   },
   "cooldowns": {},
   "pending_reminders": [],
@@ -109,7 +108,7 @@
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1w66w0f"
+      "last_id_combined": "t3_1w67h29"
     }
   }
 }
