@@ -4,7 +4,9 @@
     "pokemoncenter:news": "2026-09-08T19:46:35.710864+00:00",
     "unknown:news": "2026-09-08T21:05:54.737527+00:00"
   },
-  "cooldowns": {},
+  "cooldowns": {
+    "reddit": "2026-09-08T21:51:15.000063+00:00"
+  },
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
