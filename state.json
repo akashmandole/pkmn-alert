@@ -1,8 +1,7 @@
 {
   "alerted_drops": {
     "amazon:news": "2026-09-10T20:10:54.154346+00:00",
-    "target:restock": "2026-09-10T19:31:05.320365+00:00",
-    "walmart:news": "2026-09-10T18:21:35.376984+00:00"
+    "target:restock": "2026-09-10T19:31:05.320365+00:00"
   },
   "cooldowns": {},
   "pending_reminders": [],
