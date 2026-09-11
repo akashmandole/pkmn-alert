@@ -1,7 +1,6 @@
 {
   "alerted_drops": {
-    "target:preorder": "2026-09-11T07:16:40.618382+00:00",
-    "walmart:news": "2026-09-11T05:20:59.982784+00:00"
+    "target:preorder": "2026-09-11T07:16:40.618382+00:00"
   },
   "cooldowns": {},
   "pending_reminders": [],
