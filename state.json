@@ -1,8 +1,7 @@
 {
   "alerted_drops": {
     "bestbuy:news": "2026-09-12T12:46:13.231993+00:00",
-    "unknown:news": "2026-09-12T11:51:37.145186+00:00",
-    "walmart:news": "2026-09-12T10:51:08.216704+00:00"
+    "unknown:news": "2026-09-12T11:51:37.145186+00:00"
   },
   "cooldowns": {},
   "pending_reminders": [],
