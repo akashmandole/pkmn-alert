@@ -8,6 +8,7 @@
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
+    "002f7aaf61786093": "2026-09-16T14:51:53.045307+00:00",
     "01dbee603d8899e9": "2026-09-16T04:40:55.594707+00:00",
     "0466dcac9a144ee7": "2026-09-16T06:31:31.375375+00:00",
     "090db407c728b875": "2026-09-15T14:56:05.414233+00:00",
@@ -104,7 +105,7 @@
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1whz9gu"
+      "last_id_combined": "t3_1whzd1y"
     }
   }
 }
