@@ -4,9 +4,7 @@
     "target:news": "2026-09-15T23:16:07.199257+00:00",
     "unknown:news": "2026-09-16T00:21:03.202437+00:00"
   },
-  "cooldowns": {
-    "queueit": "2026-09-16T00:46:27.607996+00:00"
-  },
+  "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
