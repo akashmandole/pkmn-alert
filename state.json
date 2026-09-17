@@ -1,9 +1,7 @@
 {
   "alerted_drops": {
-    "bestbuy:news": "2026-09-17T03:31:52.192167+00:00",
     "pokemoncenter:news": "2026-09-17T03:41:45.221365+00:00",
-    "target:news": "2026-09-17T05:16:15.915968+00:00",
-    "unknown:news": "2026-09-17T03:31:52.192167+00:00"
+    "target:news": "2026-09-17T05:16:15.915968+00:00"
   },
   "cooldowns": {},
   "pending_reminders": [],
