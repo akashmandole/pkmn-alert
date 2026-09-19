@@ -1,7 +1,5 @@
 {
-  "alerted_drops": {
-    "target:restock": "2026-09-19T14:01:58.658099+00:00"
-  },
+  "alerted_drops": {},
   "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
