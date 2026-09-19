@@ -2,8 +2,7 @@
   "alerted_drops": {
     "costco:news": "2026-09-19T05:06:19.170363+00:00",
     "unknown:news": "2026-09-19T05:46:12.761995+00:00",
-    "unknown:restock": "2026-09-19T04:46:19.575033+00:00",
-    "walmart:news": "2026-09-19T04:21:27.421280+00:00"
+    "unknown:restock": "2026-09-19T04:46:19.575033+00:00"
   },
   "cooldowns": {},
   "pending_reminders": [],
