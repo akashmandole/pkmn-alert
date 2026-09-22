@@ -2,9 +2,7 @@
   "alerted_drops": {
     "pokemoncenter:preorder": "2026-09-22T12:16:20.576451+00:00"
   },
-  "cooldowns": {
-    "queueit": "2026-09-22T12:46:21.304812+00:00"
-  },
+  "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
