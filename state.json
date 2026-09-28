@@ -113,14 +113,7 @@
     "fdd377031e3cab7f": "2026-09-27T22:55:36.883509+00:00",
     "ffc809eb39b04c13": "2026-09-28T01:20:34.574583+00:00"
   },
-  "signal_log": [
-    {
-      "at": "2026-09-28T17:21:03.712962+00:00",
-      "kind": "queue",
-      "retailer": "pokemoncenter",
-      "source_id": "reddit"
-    }
-  ],
+  "signal_log": [],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
