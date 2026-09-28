@@ -1,7 +1,54 @@
 {
-  "alerted_drops": {},
-  "cooldowns": {},
-  "pending_reminders": [],
+  "alerted_drops": {
+    "pokemoncenter:queue": "2026-09-28T19:56:24.351022+00:00"
+  },
+  "cooldowns": {
+    "queueit": "2026-09-28T20:26:25.244281+00:00"
+  },
+  "pending_reminders": [
+    {
+      "attempt": 1,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-09-28T20:11:24.351022+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-09-28T19:55:20+00:00",
+        "kind": "queue",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "How do I get ready for a PKC queue?",
+        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1wsp08f/how_do_i_get_ready_for_a_pkc_queue/"
+      },
+      "subscriber_id": "me"
+    },
+    {
+      "attempt": 2,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-09-28T20:26:24.351022+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-09-28T19:55:20+00:00",
+        "kind": "queue",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "How do I get ready for a PKC queue?",
+        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1wsp08f/how_do_i_get_ready_for_a_pkc_queue/"
+      },
+      "subscriber_id": "me"
+    }
+  ],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
@@ -62,7 +109,6 @@
     "8ce4b3c16a1b4228": "2026-09-27T20:06:20.941673+00:00",
     "8ff9ce63bca90622": "2026-09-27T23:00:44.749192+00:00",
     "92607209a6a5d48c": "2026-09-28T02:21:19.208760+00:00",
-    "929dbd2ff7df28d5": "2026-09-27T19:55:54.805547+00:00",
     "958b93aa284b007b": "2026-09-27T21:30:27.045658+00:00",
     "959eeb4d9b2041de": "2026-09-28T05:50:25.855412+00:00",
     "97bc08624bd6f56b": "2026-09-28T05:46:21.639517+00:00",
@@ -70,6 +116,7 @@
     "9d7a7597463a6d39": "2026-09-27T22:55:36.883509+00:00",
     "9ed62978b6441e20": "2026-09-28T05:50:25.855412+00:00",
     "a3c0bdc3b2ab61d4": "2026-09-27T23:35:59.279770+00:00",
+    "a597b3e73e618283": "2026-09-28T19:56:24.351022+00:00",
     "a6519295ac3f9bc0": "2026-09-27T22:55:36.883509+00:00",
     "a8008b5718b52a13": "2026-09-28T01:20:34.574583+00:00",
     "ac88703f41475234": "2026-09-28T05:50:25.855412+00:00",
@@ -106,11 +153,18 @@
     "fdd377031e3cab7f": "2026-09-27T22:55:36.883509+00:00",
     "ffc809eb39b04c13": "2026-09-28T01:20:34.574583+00:00"
   },
-  "signal_log": [],
+  "signal_log": [
+    {
+      "at": "2026-09-28T19:56:24.351022+00:00",
+      "kind": "queue",
+      "retailer": "pokemoncenter",
+      "source_id": "reddit"
+    }
+  ],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1wskqle"
+      "last_id_combined": "t3_1wsp08f"
     }
   }
 }
