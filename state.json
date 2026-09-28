@@ -1,33 +1,10 @@
 {
   "alerted_drops": {
-    "pokemoncenter:queue": "2026-09-28T19:56:24.351022+00:00"
+    "pokemoncenter:queue": "2026-09-28T19:56:24.351022+00:00",
+    "unknown:news": "2026-09-28T20:31:18.607421+00:00"
   },
-  "cooldowns": {
-    "queueit": "2026-09-28T20:26:25.244281+00:00"
-  },
-  "pending_reminders": [
-    {
-      "attempt": 2,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-09-28T20:26:24.351022+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-09-28T19:55:20+00:00",
-        "kind": "queue",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "How do I get ready for a PKC queue?",
-        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1wsp08f/how_do_i_get_ready_for_a_pkc_queue/"
-      },
-      "subscriber_id": "me"
-    }
-  ],
+  "cooldowns": {},
+  "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
@@ -70,6 +47,7 @@
     "5bd27eaaeb9b2fc0": "2026-09-28T00:31:29.021522+00:00",
     "5e34c75b55c8f746": "2026-09-28T05:50:25.855412+00:00",
     "60f6a713caf07d5f": "2026-09-27T20:40:28.644057+00:00",
+    "61aab678e4240edf": "2026-09-28T20:31:18.607421+00:00",
     "62cfa9e8823cacf9": "2026-09-28T05:46:21.639517+00:00",
     "649b99f3671418d2": "2026-09-28T02:56:08.095407+00:00",
     "699bef4e0ee69d85": "2026-09-28T05:50:25.855412+00:00",
@@ -139,7 +117,7 @@
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1wsp08f"
+      "last_id_combined": "t3_1wspyoh"
     }
   }
 }
