@@ -82,7 +82,7 @@ subscribers:
     # Enabled here because consumers were complaining about fake alerts.
     # Flip to false to re-open MED delivery if coverage matters more
     # than precision.
-    require_confirmation: true
+    require_confirmation: false
 
   ############################################################
   # Example: a second person, SMS only, only wants queue alerts (never deals)
