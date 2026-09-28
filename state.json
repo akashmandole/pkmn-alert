@@ -3,32 +3,8 @@
     "pokemoncenter:queue": "2026-09-28T17:21:03.712962+00:00",
     "unknown:news": "2026-09-28T16:06:22.547933+00:00"
   },
-  "cooldowns": {
-    "queueit": "2026-09-28T17:51:04.441010+00:00"
-  },
-  "pending_reminders": [
-    {
-      "attempt": 2,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-09-28T17:51:03.712962+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-09-28T17:20:11+00:00",
-        "kind": "queue",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "Delta Reign Has loaded on Pokemon center ,keep an eye out for a queue in the near future!",
-        "url": "https://www.reddit.com/r/PKMNTCGDeals/comments/1wskqle/delta_reign_has_loaded_on_pokemon_center_keep_an/"
-      },
-      "subscriber_id": "me"
-    }
-  ],
+  "cooldowns": {},
+  "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
