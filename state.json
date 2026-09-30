@@ -3,7 +3,6 @@
     "pokemoncenter:news": "2026-09-30T22:05:43.785692+00:00",
     "unknown:news": "2026-09-30T21:25:57.895864+00:00",
     "unknown:preorder": "2026-09-30T21:51:36.321591+00:00",
-    "unknown:restock": "2026-09-30T20:55:48.952818+00:00",
     "walmart:news": "2026-09-30T21:21:03.147916+00:00"
   },
   "cooldowns": {},
@@ -189,14 +188,7 @@
     "fe6f6df27a4df660": "2026-09-30T19:56:27.582595+00:00",
     "fff5bebdbbf5e9ca": "2026-09-30T00:46:40.811924+00:00"
   },
-  "signal_log": [
-    {
-      "at": "2026-09-30T21:51:36.321591+00:00",
-      "kind": "preorder",
-      "retailer": "unknown",
-      "source_id": "reddit"
-    }
-  ],
+  "signal_log": [],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
