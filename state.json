@@ -2,32 +2,8 @@
   "alerted_drops": {
     "pokemoncenter:restock": "2026-09-30T04:11:00.638828+00:00"
   },
-  "cooldowns": {
-    "queueit": "2026-09-30T04:41:01.203984+00:00"
-  },
-  "pending_reminders": [
-    {
-      "attempt": 2,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-09-30T04:41:00.638828+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-09-30T04:07:34+00:00",
-        "kind": "restock",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "\ud83d\udea8POKEMON CENTER DROP POSSIBLY LATER TODAY!\ud83d\udea8",
-        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1wtv8lp/pokemon_center_drop_possibly_later_today/"
-      },
-      "subscriber_id": "me"
-    }
-  ],
+  "cooldowns": {},
+  "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
@@ -92,7 +68,6 @@
     "8aa23365b544fd59": "2026-09-29T22:36:28.404411+00:00",
     "8e70c9a2e6863be0": "2026-09-30T00:46:40.811924+00:00",
     "8f05005dbe7213b3": "2026-09-29T05:21:38.519215+00:00",
-    "9125222d672b720b": "2026-09-29T04:40:39.234453+00:00",
     "914b1a986d44f916": "2026-09-30T00:41:00.821200+00:00",
     "926c0a13b6b51c4c": "2026-09-29T05:21:38.519215+00:00",
     "97d636bcf7646b4b": "2026-09-29T19:41:34.853183+00:00",
