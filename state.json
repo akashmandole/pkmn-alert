@@ -3,32 +3,8 @@
     "pokemoncenter:restock": "2026-09-30T00:46:40.811924+00:00",
     "unknown:news": "2026-09-29T23:55:59.742222+00:00"
   },
-  "cooldowns": {
-    "queueit": "2026-09-30T01:16:41.359928+00:00"
-  },
-  "pending_reminders": [
-    {
-      "attempt": 2,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-09-30T01:16:40.811924+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-09-30T00:45:21+00:00",
-        "kind": "restock",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "POKEMON CENTER DROP LIKELY TOMORROW!",
-        "url": "https://www.reddit.com/r/PKMNTCGDeals/comments/1wtr6gl/pokemon_center_drop_likely_tomorrow/"
-      },
-      "subscriber_id": "me"
-    }
-  ],
+  "cooldowns": {},
+  "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
