@@ -152,12 +152,6 @@
   },
   "signal_log": [
     {
-      "at": "2026-09-30T17:40:54.186997+00:00",
-      "kind": "preorder",
-      "retailer": "pokemoncenter",
-      "source_id": "reddit"
-    },
-    {
       "at": "2026-09-30T18:15:59.901655+00:00",
       "kind": "restock",
       "retailer": "pokemoncenter",
