@@ -1,6 +1,5 @@
 {
   "alerted_drops": {
-    "bestbuy:restock": "2026-09-30T17:21:39.065501+00:00",
     "pokemoncenter:news": "2026-09-30T18:51:04.998936+00:00",
     "pokemoncenter:preorder": "2026-09-30T17:40:54.186997+00:00",
     "pokemoncenter:restock": "2026-09-30T18:15:59.901655+00:00",
@@ -201,7 +200,7 @@
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1wue0bu"
+      "last_id_combined": "t3_1wue6ns"
     }
   }
 }
