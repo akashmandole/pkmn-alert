@@ -1,9 +1,53 @@
 {
   "alerted_drops": {
+    "pokemoncenter:queue": "2026-09-30T15:51:10.464648+00:00",
     "unknown:news": "2026-09-30T14:11:41.511625+00:00"
   },
   "cooldowns": {},
-  "pending_reminders": [],
+  "pending_reminders": [
+    {
+      "attempt": 1,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-09-30T16:06:10.464648+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-09-30T15:47:05+00:00",
+        "kind": "queue",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "Pokemon Center Queue Monitor - Security Change Detected is in stock at Pokemon Center Queue Monitor (Beta) for $50.00",
+        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1wu8f0r/pokemon_center_queue_monitor_security_change/"
+      },
+      "subscriber_id": "me"
+    },
+    {
+      "attempt": 2,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-09-30T16:21:10.464648+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-09-30T15:47:05+00:00",
+        "kind": "queue",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "Pokemon Center Queue Monitor - Security Change Detected is in stock at Pokemon Center Queue Monitor (Beta) for $50.00",
+        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1wu8f0r/pokemon_center_queue_monitor_security_change/"
+      },
+      "subscriber_id": "me"
+    }
+  ],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
@@ -59,6 +103,7 @@
     "934ec11ea6b7a8eb": "2026-09-30T06:00:51.542028+00:00",
     "97d636bcf7646b4b": "2026-09-29T19:41:34.853183+00:00",
     "a2b233ec1aec8459": "2026-09-30T09:35:51.971233+00:00",
+    "a6c92701e0b1dda6": "2026-09-30T15:51:10.464648+00:00",
     "a801ee4487545841": "2026-09-30T09:41:34.501803+00:00",
     "a914b8de0c0d85b6": "2026-09-30T06:06:38.835987+00:00",
     "ab438a8623ce1741": "2026-09-30T09:56:26.789018+00:00",
@@ -69,6 +114,7 @@
     "b785959e3a56cac6": "2026-09-29T20:11:43.107136+00:00",
     "b7accca2370de9e4": "2026-09-30T06:06:38.835987+00:00",
     "b9929c808de22a1f": "2026-09-29T23:55:59.742222+00:00",
+    "b9a5800bee4cf30e": "2026-09-30T15:51:10.464648+00:00",
     "bd6c846deeec8723": "2026-09-29T16:21:09.281115+00:00",
     "c1280d60c2cc9820": "2026-09-29T21:41:23.330505+00:00",
     "c3926e66ac4e272d": "2026-09-29T21:41:23.330505+00:00",
@@ -98,11 +144,24 @@
     "fe55757b14650fb5": "2026-09-29T22:36:28.404411+00:00",
     "fff5bebdbbf5e9ca": "2026-09-30T00:46:40.811924+00:00"
   },
-  "signal_log": [],
+  "signal_log": [
+    {
+      "at": "2026-09-30T15:51:10.464648+00:00",
+      "kind": "queue",
+      "retailer": "pokemoncenter",
+      "source_id": "reddit"
+    },
+    {
+      "at": "2026-09-30T15:51:10.464648+00:00",
+      "kind": "queue",
+      "retailer": "pokemoncenter",
+      "source_id": "reddit"
+    }
+  ],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1wu782u"
+      "last_id_combined": "t3_1wu8fgt"
     }
   }
 }
