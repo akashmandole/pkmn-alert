@@ -2,6 +2,7 @@
   "alerted_drops": {
     "bestbuy:restock": "2026-09-30T17:21:39.065501+00:00",
     "pokemoncenter:news": "2026-09-30T16:26:12.450095+00:00",
+    "pokemoncenter:preorder": "2026-09-30T17:40:54.186997+00:00",
     "pokemoncenter:queue": "2026-09-30T15:51:10.464648+00:00",
     "unknown:news": "2026-09-30T17:01:25.897724+00:00",
     "unknown:preorder": "2026-09-30T17:15:54.640225+00:00",
@@ -69,6 +70,7 @@
     "8cef99673bfbb90a": "2026-09-30T06:06:38.835987+00:00",
     "8e70c9a2e6863be0": "2026-09-30T00:46:40.811924+00:00",
     "8f810db283093a5f": "2026-09-30T17:15:54.640225+00:00",
+    "90b14303ba15c862": "2026-09-30T17:40:54.186997+00:00",
     "914b1a986d44f916": "2026-09-30T00:41:00.821200+00:00",
     "934ec11ea6b7a8eb": "2026-09-30T06:00:51.542028+00:00",
     "93ec828c0469ef67": "2026-09-30T16:55:48.497384+00:00",
@@ -136,12 +138,18 @@
       "kind": "preorder",
       "retailer": "unknown",
       "source_id": "reddit"
+    },
+    {
+      "at": "2026-09-30T17:40:54.186997+00:00",
+      "kind": "preorder",
+      "retailer": "pokemoncenter",
+      "source_id": "reddit"
     }
   ],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1wubb5p"
+      "last_id_combined": "t3_1wubdvt"
     }
   }
 }
