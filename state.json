@@ -2,9 +2,12 @@
   "alerted_drops": {
     "pokemoncenter:news": "2026-09-30T19:56:27.582595+00:00",
     "unknown:news": "2026-09-30T20:25:44.578379+00:00",
+    "unknown:restock": "2026-09-30T20:55:48.952818+00:00",
     "walmart:news": "2026-09-30T20:06:33.147983+00:00"
   },
-  "cooldowns": {},
+  "cooldowns": {
+    "queueit": "2026-09-30T21:25:49.514488+00:00"
+  },
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
@@ -59,6 +62,7 @@
     "48b03b4240debabb": "2026-09-30T15:01:45.394062+00:00",
     "48c9357f6e07ba85": "2026-09-30T00:51:01.805567+00:00",
     "49c40ee7faf5fa4c": "2026-09-30T06:00:51.542028+00:00",
+    "49d1f511d28021d8": "2026-09-30T20:55:48.952818+00:00",
     "4aa9121d4a21ff0a": "2026-09-30T19:00:56.176831+00:00",
     "4c8f5e26d092d63a": "2026-09-30T00:41:00.821200+00:00",
     "4fed3d9274e23f83": "2026-09-29T21:26:21.471646+00:00",
@@ -190,11 +194,18 @@
     "fe6f6df27a4df660": "2026-09-30T19:56:27.582595+00:00",
     "fff5bebdbbf5e9ca": "2026-09-30T00:46:40.811924+00:00"
   },
-  "signal_log": [],
+  "signal_log": [
+    {
+      "at": "2026-09-30T20:55:48.952818+00:00",
+      "kind": "restock",
+      "retailer": "unknown",
+      "source_id": "reddit"
+    }
+  ],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1wug6pb"
+      "last_id_combined": "t3_1wugjva"
     }
   }
 }
