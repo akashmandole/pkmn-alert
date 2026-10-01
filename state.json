@@ -189,14 +189,7 @@
     "fe6f6df27a4df660": "2026-09-30T19:56:27.582595+00:00",
     "fff5bebdbbf5e9ca": "2026-09-30T00:46:40.811924+00:00"
   },
-  "signal_log": [
-    {
-      "at": "2026-09-30T23:36:12.379438+00:00",
-      "kind": "preorder",
-      "retailer": "pokemoncenter",
-      "source_id": "reddit"
-    }
-  ],
+  "signal_log": [],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
