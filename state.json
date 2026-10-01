@@ -189,7 +189,8 @@
     "fdfcdd4f50ad0360": "2026-09-30T17:21:39.065501+00:00",
     "fe1f524a006ddb4b": "2026-10-01T03:51:12.742229+00:00",
     "fe6f6df27a4df660": "2026-09-30T19:56:27.582595+00:00",
-    "fe7ca84c84ac47cb": "2026-10-01T06:21:24.193851+00:00"
+    "fe7ca84c84ac47cb": "2026-10-01T06:21:24.193851+00:00",
+    "ff1cebfaeca9ffc4": "2026-10-01T12:10:58.016703+00:00"
   },
   "signal_log": [
     {
@@ -202,7 +203,7 @@
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1wuxkuy"
+      "last_id_combined": "t3_1wuxpwa"
     }
   }
 }
