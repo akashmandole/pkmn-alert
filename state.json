@@ -3,9 +3,7 @@
     "unknown:news": "2026-10-01T11:51:22.534997+00:00",
     "unknown:restock": "2026-10-01T11:41:28.794476+00:00"
   },
-  "cooldowns": {
-    "queueit": "2026-10-01T12:11:29.576201+00:00"
-  },
+  "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
