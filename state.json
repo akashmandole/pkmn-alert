@@ -1,7 +1,6 @@
 {
   "alerted_drops": {
-    "target:news": "2026-10-04T14:26:25.034206+00:00",
-    "unknown:news": "2026-10-04T13:01:30.173911+00:00"
+    "target:news": "2026-10-04T14:26:25.034206+00:00"
   },
   "cooldowns": {},
   "pending_reminders": [],
