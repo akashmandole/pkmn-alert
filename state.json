@@ -1,14 +1,13 @@
 {
   "alerted_drops": {
     "amazon:news": "2026-10-07T22:11:48.456212+00:00",
-    "gamestop:preorder": "2026-10-07T20:56:52.200392+00:00",
     "unknown:news": "2026-10-07T21:21:50.334651+00:00",
     "unknown:restock": "2026-10-07T22:26:44.614930+00:00",
     "walmart:news": "2026-10-07T21:11:52.178778+00:00",
     "walmart:restock": "2026-10-07T21:01:59.531763+00:00"
   },
   "cooldowns": {
-    "queueit": "2026-10-07T22:56:45.315807+00:00"
+    "queueit": "2026-10-07T23:31:12.658537+00:00"
   },
   "pending_reminders": [],
   "probe_burst_until": "",
