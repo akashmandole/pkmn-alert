@@ -1,8 +1,7 @@
 {
   "alerted_drops": {
     "gamestop:preorder": "2026-10-07T15:01:39.457179+00:00",
-    "unknown:news": "2026-10-07T15:01:39.457179+00:00",
-    "unknown:restock": "2026-10-07T14:02:06.405407+00:00"
+    "unknown:news": "2026-10-07T15:01:39.457179+00:00"
   },
   "cooldowns": {},
   "pending_reminders": [],
