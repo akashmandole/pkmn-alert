@@ -3,9 +3,7 @@
     "amazon:news": "2026-10-07T22:11:48.456212+00:00",
     "unknown:restock": "2026-10-07T22:26:44.614930+00:00"
   },
-  "cooldowns": {
-    "queueit": "2026-10-07T23:31:12.658537+00:00"
-  },
+  "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
@@ -103,12 +101,6 @@
     "fb3843cf4a262aba": "2026-10-07T05:01:22.447984+00:00"
   },
   "signal_log": [
-    {
-      "at": "2026-10-07T22:26:44.614930+00:00",
-      "kind": "restock",
-      "retailer": "unknown",
-      "source_id": "reddit"
-    },
     {
       "at": "2026-10-07T22:51:30.668245+00:00",
       "kind": "restock",
