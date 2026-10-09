@@ -161,14 +161,7 @@
     "fe800946671143fe": "2026-10-09T01:16:52.542170+00:00",
     "feb2d8023a0bec91": "2026-10-08T22:11:37.902535+00:00"
   },
-  "signal_log": [
-    {
-      "at": "2026-10-09T19:50:57.785588+00:00",
-      "kind": "restock",
-      "retailer": "unknown",
-      "source_id": "reddit"
-    }
-  ],
+  "signal_log": [],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
