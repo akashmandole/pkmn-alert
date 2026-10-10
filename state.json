@@ -1,5 +1,7 @@
 {
-  "alerted_drops": {},
+  "alerted_drops": {
+    "walmart:news": "2026-10-10T22:31:22.478187+00:00"
+  },
   "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
@@ -32,6 +34,7 @@
     "6e0d859ecee66296": "2026-10-10T04:41:31.891981+00:00",
     "6e2d858675e6429c": "2026-10-10T03:01:47.274053+00:00",
     "7504ac28ddf50dd1": "2026-10-10T20:11:29.873634+00:00",
+    "7a7c9eaab7a1d291": "2026-10-10T22:31:22.478187+00:00",
     "7c91d5a6fac11b81": "2026-10-10T19:36:47.185860+00:00",
     "8330e57eecb1bdd3": "2026-10-10T19:30:55.237089+00:00",
     "84e14fa37c61bd95": "2026-10-10T04:41:31.891981+00:00",
@@ -66,7 +69,7 @@
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1x23xud"
+      "last_id_combined": "t3_1x2ryfq"
     }
   }
 }
