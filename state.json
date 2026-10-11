@@ -1,7 +1,5 @@
 {
-  "alerted_drops": {
-    "costco:restock": "2026-10-11T15:06:39.154142+00:00"
-  },
+  "alerted_drops": {},
   "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
