@@ -1,5 +1,7 @@
 {
-  "alerted_drops": {},
+  "alerted_drops": {
+    "gamestop:news": "2026-10-11T20:36:13.755621+00:00"
+  },
   "cooldowns": {},
   "pending_reminders": [],
   "probe_burst_until": "",
@@ -18,6 +20,7 @@
     "33f4962a485ecefe": "2026-10-11T10:21:32.301673+00:00",
     "487c50a7eddaf5d3": "2026-10-11T09:26:49.001477+00:00",
     "576cb1fa3b30ce71": "2026-10-11T09:46:12.132087+00:00",
+    "5bd8d1d7a155a302": "2026-10-11T20:36:13.755621+00:00",
     "5cb3c0c496e601ce": "2026-10-11T09:41:49.484777+00:00",
     "5e2131a34ef467ef": "2026-10-11T10:21:32.301673+00:00",
     "64478dd3edc46073": "2026-10-11T09:46:12.132087+00:00",
@@ -53,7 +56,7 @@
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1x3ev3u"
+      "last_id_combined": "t3_1x3iseu"
     }
   }
 }
