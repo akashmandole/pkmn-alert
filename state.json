@@ -1,11 +1,55 @@
 {
   "alerted_drops": {
     "pokemoncenter:news": "2026-10-15T16:41:44.907187+00:00",
+    "pokemoncenter:queue": "2026-10-15T16:46:12.613617+00:00",
     "unknown:news": "2026-10-15T16:16:27.685161+00:00",
     "walmart:news": "2026-10-15T16:31:25.463256+00:00"
   },
   "cooldowns": {},
-  "pending_reminders": [],
+  "pending_reminders": [
+    {
+      "attempt": 1,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-10-15T17:01:12.613617+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-10-15T16:42:03+00:00",
+        "kind": "queue",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "Pokemon Center Queue is up!",
+        "url": "https://www.reddit.com/r/PKMNTCGDeals/comments/1x6qp0b/pokemon_center_queue_is_up/"
+      },
+      "subscriber_id": "me"
+    },
+    {
+      "attempt": 2,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-10-15T17:16:12.613617+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-10-15T16:42:03+00:00",
+        "kind": "queue",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "Pokemon Center Queue is up!",
+        "url": "https://www.reddit.com/r/PKMNTCGDeals/comments/1x6qp0b/pokemon_center_queue_is_up/"
+      },
+      "subscriber_id": "me"
+    }
+  ],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
@@ -68,6 +112,7 @@
     "aaa80552e2ba3f60": "2026-10-15T03:41:26.049319+00:00",
     "ad659ccc4fd71485": "2026-10-15T03:46:27.210016+00:00",
     "b5e5d3cf74c1f05c": "2026-10-15T03:46:27.210016+00:00",
+    "b8209254ffc33d3c": "2026-10-15T16:46:12.613617+00:00",
     "b8618a73a1ff4282": "2026-10-14T23:06:48.169137+00:00",
     "ba772833ccb3825c": "2026-10-14T21:36:05.723522+00:00",
     "bf08e06adfede478": "2026-10-15T15:31:40.448723+00:00",
@@ -89,13 +134,21 @@
     "f8362f39b44dac33": "2026-10-15T05:21:28.339855+00:00",
     "f8e86fb488224553": "2026-10-14T23:06:48.169137+00:00",
     "fb01d7fc67efdf9c": "2026-10-14T23:06:48.169137+00:00",
-    "fca6b3afe8798f6b": "2026-10-15T03:41:26.049319+00:00"
+    "fca6b3afe8798f6b": "2026-10-15T03:41:26.049319+00:00",
+    "ffb0d55c04512d92": "2026-10-15T16:46:12.613617+00:00"
   },
-  "signal_log": [],
+  "signal_log": [
+    {
+      "at": "2026-10-15T16:46:12.613617+00:00",
+      "kind": "queue",
+      "retailer": "pokemoncenter",
+      "source_id": "reddit"
+    }
+  ],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1x6qnsi"
+      "last_id_combined": "t3_1x6qpae"
     }
   }
 }
