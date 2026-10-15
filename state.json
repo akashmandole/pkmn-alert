@@ -2,32 +2,11 @@
   "alerted_drops": {
     "pokemoncenter:news": "2026-10-15T18:11:08.712971+00:00",
     "pokemoncenter:queue": "2026-10-15T18:11:08.712971+00:00",
+    "target:news": "2026-10-15T18:41:39.626361+00:00",
     "unknown:news": "2026-10-15T18:36:35.866422+00:00"
   },
   "cooldowns": {},
-  "pending_reminders": [
-    {
-      "attempt": 2,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-10-15T18:41:08.712971+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-10-15T18:07:19+00:00",
-        "kind": "queue",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "Am I wasting my time in the PKC queue?",
-        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1x6syix/am_i_wasting_my_time_in_the_pkc_queue/"
-      },
-      "subscriber_id": "me"
-    }
-  ],
+  "pending_reminders": [],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
@@ -55,6 +34,7 @@
     "415d018f1f90201e": "2026-10-15T15:21:31.297923+00:00",
     "4f0a57dd7c5fef93": "2026-10-15T03:46:27.210016+00:00",
     "50e00e0148ec6c51": "2026-10-15T16:01:11.991942+00:00",
+    "534249da6131cfa9": "2026-10-15T18:41:39.626361+00:00",
     "5652642f91e1f29d": "2026-10-14T21:56:38.868252+00:00",
     "568c0f1ae98f7367": "2026-10-15T03:41:26.049319+00:00",
     "5776de3adf99f673": "2026-10-14T23:16:00.497942+00:00",
@@ -134,7 +114,7 @@
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1x6tlln"
+      "last_id_combined": "t3_1x6tt1c"
     }
   }
 }
