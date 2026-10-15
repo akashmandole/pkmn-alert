@@ -8,27 +8,6 @@
   "cooldowns": {},
   "pending_reminders": [
     {
-      "attempt": 1,
-      "channel": {
-        "options": {
-          "topic": "pkmn-drops-EvU0a8tKdCse"
-        },
-        "type": "ntfy"
-      },
-      "due_iso": "2026-10-15T18:26:08.712971+00:00",
-      "event": {
-        "confidence": 1.0,
-        "detected_at": "2026-10-15T18:07:19+00:00",
-        "kind": "queue",
-        "region": "US",
-        "retailer": "pokemoncenter",
-        "source": "reddit",
-        "title": "Am I wasting my time in the PKC queue?",
-        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1x6syix/am_i_wasting_my_time_in_the_pkc_queue/"
-      },
-      "subscriber_id": "me"
-    },
-    {
       "attempt": 2,
       "channel": {
         "options": {
