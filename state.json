@@ -2,12 +2,56 @@
   "alerted_drops": {
     "pokemoncenter:news": "2026-10-15T19:31:01.430770+00:00",
     "pokemoncenter:queue": "2026-10-15T18:11:08.712971+00:00",
+    "pokemoncenter:restock": "2026-10-15T19:46:45.959379+00:00",
     "target:news": "2026-10-15T18:41:39.626361+00:00",
     "unknown:news": "2026-10-15T18:36:35.866422+00:00",
     "walmart:news": "2026-10-15T18:51:54.334675+00:00"
   },
   "cooldowns": {},
-  "pending_reminders": [],
+  "pending_reminders": [
+    {
+      "attempt": 1,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-10-15T20:01:45.959379+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-10-15T19:42:44+00:00",
+        "kind": "restock",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "Any real humans get anything from Pokemon center today? Or was this a \u201cbot exclusive\u201d drop and we are screwed for UPCs?",
+        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1x6vhbo/any_real_humans_get_anything_from_pokemon_center/"
+      },
+      "subscriber_id": "me"
+    },
+    {
+      "attempt": 2,
+      "channel": {
+        "options": {
+          "topic": "pkmn-drops-EvU0a8tKdCse"
+        },
+        "type": "ntfy"
+      },
+      "due_iso": "2026-10-15T20:16:45.959379+00:00",
+      "event": {
+        "confidence": 1.0,
+        "detected_at": "2026-10-15T19:42:44+00:00",
+        "kind": "restock",
+        "region": "US",
+        "retailer": "pokemoncenter",
+        "source": "reddit",
+        "title": "Any real humans get anything from Pokemon center today? Or was this a \u201cbot exclusive\u201d drop and we are screwed for UPCs?",
+        "url": "https://www.reddit.com/r/PokemonRestocks/comments/1x6vhbo/any_real_humans_get_anything_from_pokemon_center/"
+      },
+      "subscriber_id": "me"
+    }
+  ],
   "probe_burst_until": "",
   "recent_confirmations": {},
   "seen": {
@@ -67,6 +111,7 @@
     "95ba2dc6b755658d": "2026-10-14T22:35:56.415649+00:00",
     "98c9137c4e884ab9": "2026-10-15T03:41:26.049319+00:00",
     "9a0e5c0a1cf5b37d": "2026-10-15T03:46:27.210016+00:00",
+    "9a33db3ddc93e0b1": "2026-10-15T19:46:45.959379+00:00",
     "9bcf020b382a958e": "2026-10-15T03:46:27.210016+00:00",
     "9e89e4312cf49346": "2026-10-15T03:46:27.210016+00:00",
     "a3ec63dc84c81d32": "2026-10-14T22:40:53.077924+00:00",
@@ -107,11 +152,18 @@
     "fe2d81e7c5bd771d": "2026-10-15T18:11:08.712971+00:00",
     "ffb0d55c04512d92": "2026-10-15T16:46:12.613617+00:00"
   },
-  "signal_log": [],
+  "signal_log": [
+    {
+      "at": "2026-10-15T19:46:45.959379+00:00",
+      "kind": "restock",
+      "retailer": "pokemoncenter",
+      "source_id": "reddit"
+    }
+  ],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1x6vd8s"
+      "last_id_combined": "t3_1x6vhbo"
     }
   }
 }
