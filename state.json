@@ -66,6 +66,7 @@
     "826dafcbc618bec4": "2026-10-19T15:01:12.977823+00:00",
     "85f5fb587e8ceed2": "2026-10-19T15:20:47.249487+00:00",
     "890f17fe97b7c346": "2026-10-19T04:11:05.610197+00:00",
+    "8c1c4c8b490dd04a": "2026-10-19T15:31:09.247942+00:00",
     "8c201cd7cf6eafbb": "2026-10-18T17:05:31.087200+00:00",
     "90941c570acc91ba": "2026-10-19T04:11:05.610197+00:00",
     "932b85afa7c1cdf0": "2026-10-19T15:16:28.241502+00:00",
@@ -105,12 +106,18 @@
       "kind": "restock",
       "retailer": "unknown",
       "source_id": "reddit"
+    },
+    {
+      "at": "2026-10-19T15:31:09.247942+00:00",
+      "kind": "restock",
+      "retailer": "unknown",
+      "source_id": "reddit"
     }
   ],
   "source_meta": {
     "reddit": {
       "last_id_PokemonRestocks": "t3_1umiqmz",
-      "last_id_combined": "t3_1x9790a"
+      "last_id_combined": "t3_1x9zxmd"
     }
   }
 }
